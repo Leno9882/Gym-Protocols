@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ULTIMATE_PROTOCOL_V18</title>
+    <style>
+        :root { --back: #ff4444; --neck: #00d9ff; --stamina: #ff00ff; --abs: #00ff41; --bg: #0d0d0d; --cyan: #00d9ff; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 120px; }
+        
+        /* HEADER MODULE */
+        .protocol-header { background: #1a0000; border-bottom: 3px solid var(--back); padding: 25px; text-align: center; }
+        .protocol-title { color: var(--back); font-weight: 900; font-size: 1.3rem; letter-spacing: 3px; margin: 0; text-transform: uppercase; }
+        .protocol-sub { color: #888; font-size: 0.75rem; text-transform: uppercase; margin-top: 6px; letter-spacing: 1px; }
+
+        .container { width: 100%; max-width: 900px; margin: 0 auto; padding: 10px; }
+
+        /* FIXED TOP TIMER */
+        .timer-module { background: #111; border: 3px solid #333; padding: 15px; text-align: center; position: sticky; top: 5px; z-index: 1000; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.9); transition: border-color 0.3s; }
+        #timer-display { font-size: 4rem; color: #fff; font-weight: 900; font-family: 'Courier New', monospace; line-height: 1; }
+        #timer-status { font-size: 0.65rem; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px; }
+
+        /* SECTION HEADINGS */
+        .section-heading { font-size: 1.1rem; margin: 35px 0 12px 0; border-left: 6px solid; padding: 12px; font-weight: 900; text-transform: uppercase; border-radius: 0 4px 4px 0; }
+        .back-h { color: var(--back); border-color: var(--back); background: rgba(255, 68, 68, 0.15); }
+        .neck-h { color: var(--neck); border-color: var(--neck); background: rgba(0, 217, 255, 0.15); }
+        .stamina-h { color: var(--stamina); border-color: var(--stamina); background: rgba(255, 0, 255, 0.15); }
+        .abs-h { color: var(--abs); border-color: var(--abs); background: rgba(0, 255, 65, 0.15); }
+
+        /* CARDS */
+        .card { background: #111; border: 1px solid #222; border-radius: 8px; margin-bottom: 20px; overflow: hidden; }
+        .row { display: flex; flex-direction: column; padding: 18px; border-bottom: 1px solid #222; }
+        .row:last-child { border-bottom: none; }
+        
+        .ex-info { margin-bottom: 14px; }
+        .ex-name { font-weight: 900; font-size: 1.1rem; color: #fff; text-transform: uppercase; }
+        .ex-meta { font-size: 0.85rem; color: #999; display: block; margin-top: 3px; }
+        
+        .badge-box { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 5px; }
+        .badge { font-size: 0.65rem; padding: 3px 8px; border-radius: 3px; font-weight: 900; text-transform: uppercase; }
+        .b-high { background: var(--back); color: #000; }
+        .b-mod { background: #ffaa00; color: #000; }
+        .b-low { background: var(--neck); color: #000; }
+        .b-note { border: 1px solid #555; color: #bbb; }
+
+        /* ACTION ROW: INPUTS + QUICK TIMER */
+        .action-row { display: flex; gap: 10px; align-items: center; }
+        .input-pair { display: flex; gap: 5px; flex-grow: 1; }
+        input.track { width: 100%; height: 55px; text-align: center; font-weight: 900; font-size: 1.3rem; border-radius: 6px; border: 2px solid; outline: none; transition: 0.2s; }
+        .prev-val { background: #00121a; color: var(--cyan); border-color: #00334d; }
+        .now-val { background: #1a1a1a; color: #fff; border-color: #444; }
+        .now-val:focus { border-color: #fff; background: #000; }
+
+        .row-timer-btn { 
+            width: 80px; height: 55px; background: #fff; color: #000; 
+            border: none; border-radius: 6px; font-weight: 900; font-size: 0.85rem; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 4px 0 #bbb;
+        }
+        .row-timer-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #bbb; }
+        .row-timer-btn span { font-size: 0.5rem; color: #666; }
+
+        /* MANUAL BOX */
+        .manual-box { background: #111; border-left: 6px solid #ffaa00; padding: 20px; margin: 40px 0; border-radius: 4px; }
+        .manual-box h4 { margin: 0 0 12px 0; color: #ffaa00; text-transform: uppercase; letter-spacing: 2px; }
+        .manual-box ul { padding-left: 20px; margin: 0; color: #ccc; font-size: 0.9rem; line-height: 1.7; }
+
+        .save-footer { background: #fff; color: #000; border: none; padding: 25px; width: 100%; font-weight: 900; font-size: 1.4rem; cursor: pointer; border-radius: 8px; margin-top: 30px; text-transform: uppercase; box-shadow: 0 -5px 20px rgba(0,0,0,0.5); }
+    </style>
+</head>
+<body>
+
+<div class="protocol-header">
+    <p class="protocol-title">COMPLETE PROTOCOL: V18</p>
+    <p class="protocol-sub">BACK • NECK • STAMINA • ABS</p>
+</div>
+
+<div class="container">
+    <div class="timer-module" id="timer-box">
+        <div id="timer-status">SYSTEM_STANDBY</div>
+        <div id="timer-display">00:00</div>
+    </div>
+
+    <div class="section-heading back-h">BACK: POWER & ETCH</div>
+    <div class="card">
+        <div class="row">
+            <div class="ex-info"><span class="ex-name">T-Bar Row</span><span class="ex-meta">4 x 12, 10, 10, 8</span>
+            <div class="badge-box"><span class="badge b-high">High Weight</span><span class="badge b-mod">Pyramid</span></div></div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="b1p" class="track prev-val" placeholder="PRV"><input type="text" id="b1c" class="track now-val" placeholder="NOW"></div>
+                <button class="row-timer-btn" onclick="runTimer(90, 'var(--back)', 'BACK_RECOVERY')">90s<span>REST</span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ex-info"><span class="ex-name">Wide Grip Pull-Up</span><span class="ex-meta">3 x Max (Min 10)</span>
+            <div class="badge-box"><span class="badge b-high">Body+</span><span class="badge b-note">Last to Fail</span></div></div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="b2p" class="track prev-val"><input type="text" id="b2c" class="track now-val"></div>
+                <button class="row-timer-btn" onclick="runTimer(90, 'var(--back)', 'BACK_RECOVERY')">90s<span>REST</span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ex-info"><span class="ex-name">One-Arm DB Row</span><span class="ex-meta">3 x 15</span>
+            <div class="badge-box"><span class="badge b-mod">Heavy Mod</span><span class="badge b-note">Elbow to Hip</span></div></div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="b3p" class="track prev-val"><input type="text" id="b3c" class="track now-val"></div>
+                <button class="row-timer-btn" onclick="runTimer(90, 'var(--back)', 'BACK_RECOVERY')">90s<span>REST</span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ex-info"><span class="ex-name">Lat Pulldown (Close)</span><span class="ex-meta">3 x 12</span>
+            <div class="badge-box"><span class="badge b-mod">Tension</span><span class="badge b-note">Squeeze Base</span></div></div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="b4p" class="track prev-val"><input type="text" id="b4c" class="track now-val"></div>
+                <button class="row-timer-btn" onclick="runTimer(90, 'var(--back)', 'BACK_RECOVERY')">90s<span>REST</span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ex-info"><span class="ex-name">Straight-Arm Pressdown</span><span class="ex-meta">3 x 20</span>
+            <div class="badge-box"><span class="badge b-low">Low Weight</span><span class="badge b-note">Serratus Detail</span></div></div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="b5p" class="track prev-val"><input type="text" id="b5c" class="track now-val"></div>
+                <button class="row-timer-btn" onclick="runTimer(60, 'var(--back)', 'DETAIL_REST')">60s<span>REST</span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ex-info"><span class="ex-name">Hyperextensions</span><span class="ex-meta">3 x 15</span>
+            <div class="badge-box"><span class="badge b-mod">Moderate</span><span class="badge b-note">Lower Wall</span></div></div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="b6p" class="track prev-val"><input type="text" id="b6c" class="track now-val"></div>
+                <button class="row-timer-btn" onclick="runTimer(60, 'var(--back)', 'BACK_RECOVERY')">60s<span>REST</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-heading neck-h">NECK: VOLUME</div>
+    <div class="card">
+        <div class="row">
+            <div class="ex-info"><span class="ex-name">High Seated Row (Neck)</span><span class="ex-meta">4 x 20</span>
+            <div class="badge-box"><span class="badge b-low">Precision</span></div></div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="n1p" class="track prev-val"><input type="text" id="n1c" class="track now-val"></div>
+                <button class="row-timer-btn" onclick="runTimer(45, 'var(--neck)', 'NECK_RECOVERY')">45s<span>REST</span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ex-info"><span class="ex-name">Low Seated Row (Neck)</span><span class="ex-meta">4 x 20</span>
+            <div class="badge-box"><span class="badge b-low">Precision</span></div></div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="n2p" class="track prev-val"><input type="text" id="n2c" class="track now-val"></div>
+                <button class="row-timer-btn" onclick="runTimer(45, 'var(--neck)', 'NECK_RECOVERY')">45s<span>REST</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-heading stamina-h">STAMINA: CONTROL</div>
+    <div class="card">
+        <div class="row">
+            <div class="ex-info"><span class="ex-name">Weighted Bridge</span><span class="ex-meta">4 x 15</span>
+            <div class="badge-box"><span class="badge b-high">Heavy</span><span class="badge b-note">3s Peak Hold</span></div></div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="s1p" class="track prev-val"><input type="text" id="s1c" class="track now-val"></div>
+                <button class="row-timer-btn" onclick="runTimer(60, 'var(--stamina)', 'POWER_REST')">60s<span>REST</span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ex-info"><span class="ex-name">Pelvic Kegel Holds</span><span class="ex-meta">3 x 60s</span>
+            <div class="badge-box"><span class="badge b-low">Max Tension</span></div></div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="s2p" class="track prev-val"><input type="text" id="s2c" class="track now-val"></div>
+                <button class="row-timer-btn" onclick="runTimer(60, 'var(--stamina)', 'STAMINA_REST')">60s<span>REST</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-heading abs-h">ABS: V-CUT</div>
+    <div class="card">
+        <div class="row">
+            <div class="ex-info"><span class="ex-name">Hanging Leg Raise</span><span class="ex-meta">4 x 20</span>
+            <div class="badge-box"><span class="badge b-low">Strict</span><span class="badge b-note">V-Taper</span></div></div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="a1p" class="track prev-val"><input type="text" id="a1c" class="track now-val"></div>
+                <button class="row-timer-btn" onclick="runTimer(30, 'var(--abs)', 'ABS_RECOVERY')">30s<span>REST</span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ex-info"><span class="ex-name">Reverse Crunch</span><span class="ex-meta">3 x 25</span>
+            <div class="badge-box"><span class="badge b-low">High Reps</span><span class="badge b-note">Hips off Bench</span></div></div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="a2p" class="track prev-val"><input type="text" id="a2c" class="track now-val"></div>
+                <button class="row-timer-btn" onclick="runTimer(30, 'var(--abs)', 'ABS_RECOVERY')">30s<span>REST</span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ex-info"><span class="ex-name">Cable Crunches</span><span class="ex-meta">3 x 15</span>
+            <div class="badge-box"><span class="badge b-high">High Weight</span><span class="badge b-note">Heavy Detail</span></div></div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="a3p" class="track prev-val"><input type="text" id="a3c" class="track now-val"></div>
+                <button class="row-timer-btn" onclick="runTimer(30, 'var(--abs)', 'ABS_RECOVERY')">30s<span>REST</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="manual-box">
+        <h4>EXECUTION MANUAL</h4>
+        <ul>
+            <li><b>T-Bar Rows:</b> Flat back. Pull with elbows, not biceps.</li>
+            <li><b>DB Rows:</b> Drive the dumbbell toward your hip.</li>
+            <li><b>Neck Rows:</b> Slow controlled eccentric for thickness.</li>
+            <li><b>Hanging Leg Raises:</b> Tilt pelvis; don't just lift legs.</li>
+        </ul>
+    </div>
+
+    <button onclick="saveSession()" class="save-footer">SAVE_ULTIMATE_V18</button>
+</div>
+
+<script>
+    let timerObj = null;
+    function runTimer(seconds, color, status) {
+        clearInterval(timerObj);
+        document.getElementById('timer-box').style.borderColor = color;
+        document.getElementById('timer-display').style.color = color;
+        document.getElementById('timer-status').innerText = status;
+        let time = seconds; updateDisplay(time);
+        if(window.navigator.vibrate) window.navigator.vibrate(50);
+        timerObj = setInterval(() => {
+            time--; updateDisplay(time);
+            if (time <= 0) {
+                clearInterval(timerObj);
+                document.getElementById('timer-status').innerText = "PUSH_LOAD";
+                document.getElementById('timer-display').innerText = "GO!";
+                if(window.navigator.vibrate) window.navigator.vibrate([300, 100, 300]);
+            }
+        }, 1000);
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+    function updateDisplay(t) {
+        let m = Math.floor(t / 60); let s = t % 60;
+        document.getElementById('timer-display').innerText = m + ":" + (s < 10 ? "0" + s : s);
+    }
+    function saveSession() {
+        document.querySelectorAll('input').forEach(i => localStorage.setItem('V18_ULTIMATE_'+i.id, i.value));
+        alert("ULTIMATE_PROTOCOL_SYNCED");
+    }
+    window.onload = () => {
+        document.querySelectorAll('input').forEach(i => {
+            const v = localStorage.getItem('V18_ULTIMATE_'+i.id); if (v) i.value = v;
+        });
+    }
+</script>
+</body>
+</html>

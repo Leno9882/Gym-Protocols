@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HYPERTROPHY_CHEST_V18</title>
+    <style>
+        :root { --mass: #ff0000; --neck: #00d9ff; --abs: #00ff41; --bg: #0d0d0d; --cyan: #00d9ff; --gold: #ffaa00; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 120px; }
+        
+        .container { width: 100%; max-width: 900px; margin: 0 auto; padding: 10px; }
+
+        /* HEADER: HYPERTROPHY FOCUS */
+        .protocol-header { background: #1a0000; border-bottom: 3px solid var(--mass); padding: 25px; text-align: center; }
+        .protocol-title { color: #fff; font-weight: 900; font-size: 1.4rem; letter-spacing: 3px; margin: 0; text-transform: uppercase; }
+        .protocol-sub { color: var(--mass); font-size: 0.75rem; text-transform: uppercase; margin-top: 6px; letter-spacing: 2px; font-weight: bold; }
+
+        /* STICKY TIMER */
+        .timer-module { background: #111; border: 3px solid #333; padding: 15px; text-align: center; position: sticky; top: 5px; z-index: 1000; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.9); }
+        #timer-display { font-size: 4.5rem; color: var(--mass); font-weight: 900; font-family: 'Courier New', monospace; line-height: 1; }
+        #timer-status { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px; }
+
+        /* SECTION LABELS */
+        .section-heading { font-size: 1.1rem; margin: 35px 0 12px 0; border-left: 6px solid; padding: 12px; font-weight: 900; text-transform: uppercase; border-radius: 0 4px 4px 0; }
+        .chest-h { color: var(--mass); border-color: var(--mass); background: rgba(255, 0, 0, 0.15); }
+        .frame-h { color: var(--neck); border-color: var(--neck); background: rgba(0, 217, 255, 0.15); }
+
+        /* CARDS */
+        .card { background: #111; border: 1px solid #222; border-radius: 8px; margin-bottom: 20px; overflow: hidden; }
+        .row { display: flex; flex-direction: column; padding: 18px; border-bottom: 1px solid #222; }
+        .row:last-child { border-bottom: none; }
+        
+        .ex-info { margin-bottom: 12px; }
+        .ex-name { font-weight: 900; font-size: 1.1rem; color: #fff; text-transform: uppercase; }
+        .ex-meta { font-size: 0.85rem; color: #999; display: block; margin-top: 2px; }
+        
+        .badge-box { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 5px; }
+        .badge { font-size: 0.65rem; padding: 3px 8px; border-radius: 3px; font-weight: 900; text-transform: uppercase; }
+        .b-growth { background: var(--mass); color: #fff; } 
+        .b-tension { background: var(--gold); color: #000; }
+        .b-note { border: 1px solid #444; color: #aaa; }
+
+        /* INPUTS & QUICK TIMER */
+        .action-row { display: flex; gap: 10px; align-items: center; }
+        .input-pair { display: flex; gap: 5px; flex-grow: 1; }
+        input.track { width: 100%; height: 55px; text-align: center; font-weight: 900; font-size: 1.3rem; border-radius: 6px; border: 2px solid; outline: none; transition: 0.2s; }
+        .prev-val { background: #00121a; color: var(--cyan); border-color: #00334d; }
+        .now-val { background: #1a1a1a; color: #fff; border-color: #444; }
+        .now-val:focus { border-color: var(--mass); background: #000; }
+
+        .row-timer-btn { 
+            width: 85px; height: 55px; background: #fff; color: #000; 
+            border: none; border-radius: 6px; font-weight: 900; font-size: 0.8rem; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 4px 0 #bbb;
+        }
+
+        /* INTEL BOX */
+        .intel-box { background: #111; border-left: 6px solid var(--gold); padding: 20px; margin: 40px 0; border-radius: 4px; }
+        .intel-box h4 { margin: 0 0 10px 0; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; }
+        .intel-box ul { padding-left: 20px; margin: 0; color: #ccc; font-size: 0.9rem; line-height: 1.7; }
+
+        .save-footer { background: var(--mass); color: #fff; border: none; padding: 25px; width: 100%; font-weight: 900; font-size: 1.4rem; cursor: pointer; border-radius: 8px; margin-top: 20px; text-transform: uppercase; box-shadow: 0 10px 30px rgba(255,0,0,0.3); }
+    </style>
+</head>
+<body>
+
+<div class="protocol-header">
+    <p class="protocol-title">CHEST: HYPERTROPHY</p>
+    <p class="protocol-sub">STRETCH-MEDIATED GROWTH | TARGET: 5-8 SEC TUT</p>
+</div>
+
+<div class="container">
+    <div class="timer-module" id="timer-box">
+        <div id="timer-status">HYPER_FLOW: READY</div>
+        <div id="timer-display">00:00</div>
+    </div>
+
+    <div class="section-heading chest-h">CHEST: GROWTH PROTOCOL</div>
+    <div class="card">
+        <div class="row">
+            <div class="ex-info"><span class="ex-name">Incline Barbell Press</span><span class="ex-meta">5 x 12, 10, 8, 6, 6</span>
+            <div class="badge-box"><span class="badge b-growth">Upper Fill</span><span class="badge b-tension">3s Eccentric</span></div></div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="c1p" class="track prev-val" placeholder="PRV"><input type="text" id="c1c" class="track now-val" placeholder="NOW"></div>
+                <button class="row-timer-btn" onclick="runTimer(120, 'var(--mass)', 'MASS_REST')">120s<span>REST</span></button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="ex-info"><span class="ex-name">Flat Barbell Press</span><span class="ex-meta">3 x 6, 6, 10</span>
+            <div class="badge-box"><span class="badge b-tension">Max Tension</span><span class="badge b-note">No Lockout</span></div></div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="c2p" class="track prev-val"><input type="text" id="c2c" class="track now-val"></div>
+                <button class="row-timer-btn" onclick="runTimer(120, 'var(--mass)', 'MASS_REST')">120s<span>REST</span></button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="ex-info"><span class="ex-name">Decline DB Press</span><span class="ex-meta">3 x 8, 8, 10</span>
+            <div class="badge-box"><span class="badge b-growth">Lower Sweep</span><span class="badge b-note">Deep Stretch</span></div></div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="c3p" class="track prev-val"><input type="text" id="c3c" class="track now-val"></div>
+                <button class="row-timer-btn" onclick="runTimer(90, 'var(--mass)', 'HYPER_REST')">90s<span>REST</span></button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="ex-info"><span class="ex-name">Seated Machine Press</span><span class="ex-meta">2 x 10, 10</span>
+            <div class="badge-box"><span class="badge b-tension">Constant Load</span><span class="badge b-note">Peak Squeeze</span></div></div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="c4p" class="track prev-val"><input type="text" id="c4c" class="track now-val"></div>
+                <button class="row-timer-btn" onclick="runTimer(90, 'var(--mass)', 'HYPER_REST')">90s<span>REST</span></button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="ex-info"><span class="ex-name">Cable Crossover</span><span class="ex-meta">2 x 12, 12</span>
+            <div class="badge-box"><span class="badge b-growth">Blood Volume</span><span class="badge b-note">1s Hold</span></div></div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="c5p" class="track prev-val"><input type="text" id="c5c" class="track now-val"></div>
+                <button class="row-timer-btn" onclick="runTimer(60, 'var(--mass)', 'PUMP_REST')">60s<span>REST</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-heading frame-h">FRAME & PERFORMANCE</div>
+    <div class="card">
+        <div class="row">
+            <div class="ex-info"><span class="ex-name">High/Low Seated Neck Row</span><span class="ex-meta">8 x 20</span>
+            <div class="badge-box"><span class="badge b-growth">Density</span></div></div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="n1p" class="track prev-val"><input type="text" id="n1c" class="track now-val"></div>
+                <button class="row-timer-btn" onclick="runTimer(45, 'var(--neck)', 'FRAME_REST')">45s<span>REST</span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ex-info"><span class="ex-name">Weighted Russian Twist</span><span class="ex-meta">4 x 20</span>
+            <div class="badge-box"><span class="badge b-growth">Core Mass</span></div></div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="a1p" class="track prev-val"><input type="text" id="a1c" class="track now-val"></div>
+                <button class="row-timer-btn" onclick="runTimer(45, 'var(--abs)', 'ABS_REST')">45s<span>REST</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="intel-box">
+        <h4>HYPERTROPHY PERFORMANCE INTEL</h4>
+        <ul>
+            <li><b>The 3-0-1-0 Tempo:</b> Lower the bar for 3 seconds, no pause at the bottom, 1 second to explode up, no pause at the top. This keeps the chest under 100% load.</li>
+            <li><b>Stretch-Mediated Growth:</b> On DB Press, go as deep as your shoulders allow. The bottom 2 inches are where the most growth is triggered.</li>
+            <li><b>Lockout Rule:</b> On Machine Press, do not lock your elbows. Stop 1 inch before lockout to keep the tension on the muscle, not the joints.</li>
+        </ul>
+    </div>
+
+    <button onclick="saveSession()" class="save-footer">SAVE_HYPERTROPHY_SYNC</button>
+</div>
+
+<script>
+    let timerObj = null;
+    function runTimer(seconds, color, status) {
+        clearInterval(timerObj);
+        document.getElementById('timer-box').style.borderColor = color;
+        document.getElementById('timer-display').style.color = color;
+        document.getElementById('timer-status').innerText = status;
+        let time = seconds; updateDisplay(time);
+        if(window.navigator.vibrate) window.navigator.vibrate(50);
+        timerObj = setInterval(() => {
+            time--; updateDisplay(time);
+            if (time <= 0) {
+                clearInterval(timerObj);
+                document.getElementById('timer-status').innerText = "INITIATE_SET";
+                document.getElementById('timer-display').innerText = "GO!";
+                if(window.navigator.vibrate) window.navigator.vibrate([300, 100, 300]);
+            }
+        }, 1000);
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+    function updateDisplay(t) {
+        let m = Math.floor(t / 60); let s = t % 60;
+        document.getElementById('timer-display').innerText = m + ":" + (s < 10 ? "0" + s : s);
+    }
+    function saveSession() {
+        document.querySelectorAll('input').forEach(i => localStorage.setItem('V18_CHEST_HYP_'+i.id, i.value));
+        alert("HYPERTROPHY_DATA_LOCKED");
+    }
+    window.onload = () => {
+        document.querySelectorAll('input').forEach(i => {
+            const v = localStorage.getItem('V18_CHEST_HYP_'+i.id); if (v) i.value = v;
+        });
+    }
+</script>
+</body>
+</html>

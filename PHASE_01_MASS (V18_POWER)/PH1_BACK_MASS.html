@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BACK_MASS_V27</title>
+    <style>
+        :root { 
+            --back: #00d9ff;   /* Cyan/Back */
+            --neck: #ffffff;   /* White */
+            --abs: #ff00ff;    /* Magenta */
+            --gold: #ffaa00;   /* Power */
+            --stress: #ff4444; /* Tension */
+            --bg: #000; 
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 120px; text-transform: uppercase; }
+        .container { width: 100%; max-width: 900px; margin: 0 auto; padding: 10px; }
+
+        /* HEADER & SYSTEM NOTES */
+        .protocol-header { background: #00121a; border: 1px solid #222; border-radius: 8px; padding: 20px; margin-bottom: 20px; border-left: 6px solid var(--back); }
+        .protocol-title { font-weight: 900; font-size: 1.4rem; letter-spacing: 2px; margin: 0; color: #fff; }
+        .notes-list { margin: 15px 0 0 0; padding-left: 20px; color: #aaa; font-size: 0.75rem; text-transform: none; line-height: 1.6; }
+        .notes-list li { margin-bottom: 5px; border-bottom: 1px solid #222; padding-bottom: 5px; }
+        .notes-list b { color: var(--back); text-transform: uppercase; }
+
+        /* TIMER MODULE */
+        .timer-module { background: #111; border: 3px solid #333; padding: 15px; text-align: center; position: sticky; top: 5px; z-index: 1000; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.9); }
+        #timer-display { font-size: clamp(3.5rem, 15vw, 5rem); color: #fff; font-weight: 900; font-family: 'Courier New', monospace; line-height: 1; }
+        #timer-status { font-size: 0.7rem; color: #888; letter-spacing: 2px; margin-bottom: 4px; }
+
+        /* SECTION HEADERS */
+        .section-heading { font-size: 1.1rem; margin: 35px 0 12px 0; border-left: 6px solid; padding: 12px; font-weight: 900; border-radius: 0 4px 4px 0; }
+        .h-back { color: var(--back); border-color: var(--back); background: rgba(0, 217, 255, 0.15); }
+        .h-frame { color: var(--abs); border-color: var(--abs); background: rgba(255, 0, 255, 0.15); }
+
+        /* CARDS */
+        .card { background: #111; border: 1px solid #222; border-radius: 8px; margin-bottom: 20px; overflow: hidden; }
+        .row { display: flex; flex-direction: column; padding: 18px; border-bottom: 1px solid #222; }
+        .ex-name { font-weight: 900; font-size: 1.1rem; color: #fff; }
+        .ex-meta { font-size: 0.85rem; color: #999; display: block; margin-top: 6px; }
+        
+        .goal-label { font-size: 0.65rem; font-weight: 900; letter-spacing: 1.5px; margin-top: 4px; display: inline-block; padding: 2px 0; }
+        .g-heavy { color: var(--gold); }
+        .g-power { color: #fff; border-bottom: 1px solid #fff; }
+        .g-stretch { color: var(--back); }
+        .g-peak { color: #00ff41; }
+
+        /* INPUTS WITH COLORED BORDERS */
+        .action-row { display: flex; gap: 10px; align-items: center; margin-top: 10px; }
+        input.track { width: 100%; height: 55px; text-align: center; font-weight: 900; font-size: 1.3rem; border-radius: 12px; background: #000; color: #fff; outline: none; }
+        .i-prev { border: 2px solid var(--gold); }
+        .i-now { border: 2px solid var(--back); }
+        .row-timer-btn { width: 85px; height: 55px; background: #fff; color: #000; border: none; border-radius: 6px; font-weight: 900; font-size: 0.8rem; cursor: pointer; }
+
+        /* SEMI-NOTES */
+        .semi-note { text-transform: none; font-size: 0.8rem; line-height: 1.4; margin: 10px 0; padding: 8px 12px; border-radius: 4px; border-left: 3px solid; }
+        .n-intel { background: rgba(0, 217, 255, 0.1); color: var(--back); border-color: var(--back); }
+        .n-stress { background: rgba(255, 68, 68, 0.1); color: var(--stress); border-color: var(--stress); }
+
+        .save-footer { background: var(--back); color: #000; border: none; padding: 25px; width: 100%; font-weight: 900; font-size: 1.4rem; cursor: pointer; border-radius: 8px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="protocol-header">
+        <p class="protocol-title">BACK_MASS_V27</p>
+        <ul class="notes-list">
+            <li><b>Heavy Loading:</b> First movements focus on maximal mechanical tension.</li>
+            <li><b>Neural Recovery:</b> 120s rests are mandatory for heavy compound lifts.</li>
+            <li><b>Cable Advantage:</b> The seated good morning provides constant tension that barbells lack.</li>
+            <li><b>Rest Intervals:</b> Follow timers strictly for metabolic stress.</li>
+        </ul>
+    </div>
+
+    <div class="timer-module" id="timer-box">
+        <div id="timer-status">ACTIVE_SESSION</div>
+        <div id="timer-display">00:00</div>
+    </div>
+
+    <div class="section-heading h-back">BACK: MASS GAIN</div>
+    <div class="card">
+        <div class="row">
+            <span class="ex-name">Bent-Over Barbell Row</span>
+            <span class="goal-label g-heavy">LOAD :: HEAVY THICKNESS</span>
+            <span class="ex-meta">5 x 12, 10, 8, 6, 6</span>
+            <div class="semi-note n-intel"><b>POWER CUE:</b> Pull the bar to your lower belly button. Squeeze shoulder blades together at the top.</div>
+            <div class="action-row">
+                <input type="text" id="b1p" class="track i-prev" placeholder="PRV">
+                <input type="text" id="b1c" class="track i-now" placeholder="NOW">
+                <button class="row-timer-btn" onclick="runTimer(120, 'var(--back)', 'HEAVY_RECOVERY')">120s</button>
+            </div>
+        </div>
+        <div class="row">
+            <span class="ex-name">Barbell Deadlift</span>
+            <span class="goal-label g-power">POWER :: MAX LOAD</span>
+            <span class="ex-meta">4 x 10, 8, 8, 6</span>
+            <div class="semi-note n-stress"><b>STRESS CUE:</b> Brace core hard. Look 3 feet ahead on floor to maintain neutral spine.</div>
+            <div class="action-row">
+                <input type="text" id="b2p" class="track i-prev"><input type="text" id="b2c" class="track i-now">
+                <button class="row-timer-btn" onclick="runTimer(120, 'var(--back)', 'NEURAL_REST')">120s</button>
+            </div>
+        </div>
+        <div class="row">
+            <span class="ex-name">Pulldown To Front</span>
+            <span class="goal-label g-stretch">WIDTH :: STRETCH</span>
+            <span class="ex-meta">3 x 8, 8, 10</span>
+            <div class="semi-note n-intel"><b>STRETCH CUE:</b> Lead with elbows. Let the weight pull your shoulders up slightly at the top to fully lengthen lats.</div>
+            <div class="action-row">
+                <input type="text" id="b3p" class="track i-prev"><input type="text" id="b3c" class="track i-now">
+                <button class="row-timer-btn" onclick="runTimer(90, 'var(--back)', 'GROWTH_REST')">90s</button>
+            </div>
+        </div>
+        <div class="row">
+            <span class="ex-name">Seated Cable Row</span>
+            <span class="goal-label g-peak">THICKNESS :: PEAK</span>
+            <span class="ex-meta">3 x 8, 10, 10</span>
+            <div class="semi-note n-intel"><b>INTEL:</b> Torso stationary. Imagine trying to touch your elbows together behind your back for middle-back thickness.</div>
+            <div class="action-row">
+                <input type="text" id="b4p" class="track i-prev"><input type="text" id="b4c" class="track i-now">
+                <button class="row-timer-btn" onclick="runTimer(90, 'var(--back)', 'THICK_REST')">90s</button>
+            </div>
+        </div>
+        <div class="row">
+            <span class="ex-name">Seated Cable Good Morning</span>
+            <span class="goal-label g-heavy">POSTERIOR :: CABLE TENSION</span>
+            <span class="ex-meta">2 x 10, 10</span>
+            <div class="semi-note n-intel"><b>INTEL:</b> Hold the cable bar against your upper chest/traps. Hinge forward at the hips, letting the cable pull you into a deep stretch, then pull back using your lower back and hams.</div>
+            <div class="action-row">
+                <input type="text" id="b5p" class="track i-prev"><input type="text" id="b5c" class="track i-now">
+                <button class="row-timer-btn" onclick="runTimer(90, 'var(--back)', 'CABLE_STRETCH')">90s</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-heading h-frame">THE FRAME: NECK & CORE</div>
+    <div class="card">
+        <div class="row">
+            <span class="ex-name">High/Low Seated Neck Row</span>
+            <span class="goal-label g-heavy">STABILITY :: FRAME</span>
+            <span class="ex-meta">8 x 20</span>
+            <div class="semi-note n-intel"><b>INTEL:</b> Slow rhythmic tempo. Keep chin tucked. Neck responds best to high-volume stability training.</div>
+            <div class="action-row">
+                <input type="text" id="n1p" class="track i-prev"><input type="text" id="n1c" class="track i-now">
+                <button class="row-timer-btn" onclick="runTimer(45, 'var(--abs)', 'NECK_REST')">45s</button>
+            </div>
+        </div>
+        <div class="row">
+            <span class="ex-name">Weighted Russian Twist</span>
+            <span class="goal-label g-peak">OBLIQUES :: TENSION</span>
+            <span class="ex-meta">4 x 20</span>
+            <div class="semi-note n-stress"><b>STRESS CUE:</b> Follow the weight with your chest. Maintain a "V" sit to keep lower abs engaged throughout.</div>
+            <div class="action-row">
+                <input type="text" id="a1p" class="track i-prev"><input type="text" id="a1c" class="track i-now">
+                <button class="row-timer-btn" onclick="runTimer(45, 'var(--abs)', 'CORE_REST')">45s</button>
+            </div>
+        </div>
+    </div>
+
+    <button onclick="saveSession()" class="save-footer">SAVE_BACK_DATA</button>
+</div>
+
+<script>
+    let timerObj = null;
+    function runTimer(seconds, color, status) {
+        clearInterval(timerObj);
+        document.getElementById('timer-box').style.borderColor = color;
+        document.getElementById('timer-display').style.color = color;
+        document.getElementById('timer-status').innerText = status;
+        let time = seconds; 
+        timerObj = setInterval(() => {
+            time--; 
+            let m = Math.floor(time / 60); let s = time % 60;
+            document.getElementById('timer-display').innerText = m + ":" + (s < 10 ? "0" + s : s);
+            if (time <= 0) {
+                clearInterval(timerObj);
+                document.getElementById('timer-status').innerText = "PUSH_NOW";
+                document.getElementById('timer-display').innerText = "GO!";
+                if(window.navigator.vibrate) window.navigator.vibrate([300, 100, 300]);
+            }
+        }, 1000);
+    }
+    function saveSession() {
+        document.querySelectorAll('input').forEach(i => localStorage.setItem('vBackMass_V27_'+i.id, i.value));
+        alert("BACK_PROTOCOL_SYNCED");
+    }
+    window.onload = () => {
+        document.querySelectorAll('input').forEach(i => {
+            const v = localStorage.getItem('vBackMass_V27_'+i.id); if (v) i.value = v;
+        });
+    }
+</script>
+</body>
+</html>

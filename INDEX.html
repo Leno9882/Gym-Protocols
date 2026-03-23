@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LENO_MASS_TERMINAL</title>
+    <style>
+        :root { --cyan: #00d9ff; --gold: #ffaa00; --bg: #000; }
+        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; text-transform: uppercase; }
+        .container { width: 90%; max-width: 500px; text-align: center; }
+        
+        .header { margin-bottom: 40px; border-left: 5px solid var(--cyan); padding-left: 20px; text-align: left; }
+        .header h1 { font-size: 2rem; letter-spacing: 4px; margin: 0; }
+        .header p { color: #888; font-size: 0.8rem; letter-spacing: 2px; }
+
+        .nav-grid { display: grid; gap: 20px; }
+        .nav-card { 
+            background: #111; border: 1px solid #222; padding: 40px 20px; 
+            text-decoration: none; color: #fff; border-radius: 12px;
+            font-weight: 900; font-size: 1.5rem; letter-spacing: 3px;
+            transition: 0.3s; display: block;
+        }
+        .nav-card:active { transform: scale(0.95); background: #00121a; }
+        .c-arms { border-bottom: 5px solid var(--gold); }
+        .c-back { border-bottom: 5px solid var(--cyan); }
+        
+        .footer-note { margin-top: 40px; color: #444; font-size: 0.7rem; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>FORGE_ARROW</h1>
+        <p>MASS_PROTOCOL_v2026</p>
+    </div>
+
+    <div class="nav-grid">
+        <a href="arms.html" class="nav-card c-arms">01_ARMS_MASS</a>
+        <a href="/PHASE_01_MASS (V18_POWER)/PH1_BACK_MASS.html" class="nav-card c-back">02_BACK_MASS</a>
+    </div>
+
+    <p class="footer-note">LENOPER_TECHNOLOGIES_INTEL_SYSTEM</p>
+</div>
+
+</body>
+</html>

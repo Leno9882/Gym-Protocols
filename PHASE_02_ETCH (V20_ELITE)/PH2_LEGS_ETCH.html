@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LEGS_MASS_DEFINITION_V20</title>
+    <style>
+        :root { --legs: #00ff41; --ham: #ffaa00; --calf: #00d9ff; --bg: #000; --panel: #111; --white: #ffffff; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 120px; }
+        .container { width: 100%; max-width: 900px; margin: 0 auto; padding: 10px; }
+
+        /* HEADER */
+        .protocol-header { background: #051a05; border-bottom: 4px solid var(--legs); padding: 25px; border-radius: 0 0 15px 15px; margin-bottom: 20px; }
+        .protocol-title { font-weight: 900; font-size: 1.5rem; letter-spacing: 3px; margin: 0; text-transform: uppercase; }
+        .intel-tag { color: var(--legs); font-size: 0.7rem; font-weight: bold; letter-spacing: 1px; display: block; margin-top: 5px; }
+
+        /* TIMER MODULE */
+        .timer-module { background: #111; border: 3px solid #333; padding: 15px; text-align: center; position: sticky; top: 5px; z-index: 1000; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.9); }
+        #timer-display { font-size: 4.5rem; color: #fff; font-weight: 900; font-family: 'Courier New', monospace; line-height: 1; }
+        #timer-status { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* SECTIONS */
+        .section-heading { font-size: 1.1rem; margin: 35px 0 12px 0; border-left: 6px solid; padding: 12px; font-weight: 900; text-transform: uppercase; background: rgba(255,255,255,0.05); }
+        .h-quads { color: var(--legs); border-color: var(--legs); }
+        .h-hams { color: var(--ham); border-color: var(--ham); }
+        .h-calves { color: var(--calf); border-color: var(--calf); }
+
+        /* EXERCISE CARDS */
+        .card { background: var(--panel); border: 1px solid #222; border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
+        .row { padding: 20px; border-bottom: 1px solid #222; }
+        .row:last-child { border-bottom: none; }
+        
+        .ex-name { font-weight: 900; font-size: 1.2rem; display: block; text-transform: uppercase; }
+        .ex-meta { color: #888; font-size: 0.85rem; margin: 4px 0; display: block; }
+        
+        /* ELITE SPECIFICATIONS */
+        .spec-box { background: #001a00; color: #00ff41; padding: 8px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; margin: 8px 0; border: 1px solid rgba(0,255,65,0.2); }
+        .spec-box b { color: #fff; text-transform: uppercase; margin-right: 5px; }
+
+        /* ACTION BARS */
+        .action-row { display: flex; gap: 12px; margin-top: 15px; align-items: center; }
+        .input-pair { display: flex; gap: 8px; flex-grow: 1; }
+        input.track { width: 100%; height: 50px; text-align: center; font-weight: 900; font-size: 1.2rem; border-radius: 8px; border: 2px solid #444; background: #1a1a1a; color: #fff; outline: none; }
+        input.track:focus { border-color: var(--legs); }
+        .row-timer-btn { width: 90px; height: 50px; background: #fff; color: #000; border: none; border-radius: 8px; font-weight: 900; cursor: pointer; }
+
+        /* GLOBAL INTEL BOXES */
+        .intel-card { background: #1a1a1a; border: 1px solid #333; padding: 20px; margin: 30px 0; border-radius: 10px; }
+        .intel-card h4 { margin: 0 0 10px 0; color: var(--legs); text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 5px; }
+        .intel-card p { font-size: 0.85rem; line-height: 1.6; color: #ccc; margin: 5px 0; }
+
+        .save-btn { background: var(--legs); color: #000; border: none; padding: 25px; width: 100%; font-weight: 900; font-size: 1.4rem; border-radius: 12px; margin-top: 30px; cursor: pointer; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+
+<div class="protocol-header">
+    <p class="protocol-title">MASS_DEFINITION_V20</p>
+    <span class="intel-tag">PHASE: FIBER SEPARATION & HYPERTROPHY</span>
+</div>
+
+<div class="container">
+    <div class="timer-module" id="timer-box">
+        <div id="timer-status">SYSTEM_READY</div>
+        <div id="timer-display">00:00</div>
+    </div>
+
+    <div class="intel-card">
+        <h4>IMPORTANCE: METABOLIC ETCHING</h4>
+        <p><b>Mechanical Tension:</b> Keeps the mass. <b>Metabolic Stress:</b> Creates the separation. We achieve this by moving heavy loads through a full stretch with controlled eccentrics.</p>
+    </div>
+
+    <div class="section-heading h-quads">QUADS: DENSITY</div>
+    <div class="card">
+        <div class="row">
+            <span class="ex-name">Smith-Machine Squat</span>
+            <span class="ex-meta">4 x 10, 10, 8, 8</span>
+            <div class="spec-box"><b>SPEC:</b> Feet narrow and low for Outer Sweep (Vastus Lateralis).</div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="q1p" class="track" placeholder="PRV"><input type="text" id="q1c" class="track" placeholder="NOW"></div>
+                <button class="row-timer-btn" onclick="runTimer(90, 'var(--legs)', 'POWER_REST')">90s</button>
+            </div>
+        </div>
+        <div class="row">
+            <span class="ex-name">Hack Squat (Open Stance)</span>
+            <span class="ex-meta">3 x 12</span>
+            <div class="spec-box"><b>SPEC:</b> Pause 1s at absolute bottom. No lockout at the top.</div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="q2p" class="track"><input type="text" id="q2c" class="track"></div>
+                <button class="row-timer-btn" onclick="runTimer(60, 'var(--legs)', 'DENSITY_REST')">60s</button>
+            </div>
+        </div>
+        <div class="row">
+            <span class="ex-name">Barbell Lunges</span>
+            <span class="ex-meta">3 x 12 Per Leg</span>
+            <div class="spec-box"><b>SPEC:</b> Lean torso forward 15° to engage the Glute-Ham tie-in.</div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="q3p" class="track"><input type="text" id="q3c" class="track"></div>
+                <button class="row-timer-btn" onclick="runTimer(60, 'var(--legs)', 'PULSE_REST')">60s</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-heading h-hams">HAMSTRINGS: ETCHING</div>
+    <div class="card">
+        <div class="row">
+            <span class="ex-name">Romanian Deadlift</span>
+            <span class="ex-meta">4 x 10</span>
+            <div class="spec-box"><b>SPEC:</b> Bar must stay against legs. Push hips back until hamstrings "scream."</div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="h1p" class="track"><input type="text" id="h1c" class="track"></div>
+                <button class="row-timer-btn" onclick="runTimer(90, 'var(--ham)', 'STRETCH_REST')">90s</button>
+            </div>
+        </div>
+        <div class="row">
+            <span class="ex-name">Seated Leg Curl</span>
+            <span class="ex-meta">3 x 15</span>
+            <div class="spec-box"><b>SPEC:</b> Pull toes toward shins (Dorsiflexion) to maximize gastrocnemius involvement.</div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="h2p" class="track"><input type="text" id="h2c" class="track"></div>
+                <button class="row-timer-btn" onclick="runTimer(45, 'var(--ham)', 'ETCH_REST')">45s</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-heading h-calves">CALVES: DIAMOND</div>
+    <div class="card">
+        <div class="row">
+            <span class="ex-name">Standing Calf Raise</span>
+            <span class="ex-meta">5 x 15</span>
+            <div class="spec-box"><b>SPEC:</b> 3s descent. 2s hold at peak. 1s stretch at bottom.</div>
+            <div class="action-row">
+                <div class="input-pair"><input type="text" id="c1p" class="track"><input type="text" id="c1c" class="track"></div>
+                <button class="row-timer-btn" onclick="runTimer(45, 'var(--calf)', 'CALF_REST')">45s</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="intel-card">
+        <h4>PRO NOTE: THE "GLASS" LOOK</h4>
+        <p>To get that paper-thin skin look (definition), you must force blood into the muscle and keep it there. Do not fully straighten your legs on Quads—keep the tension on the muscle, not the joints.</p>
+    </div>
+
+    <button onclick="saveSession()" class="save-btn">SAVE_V20_SESSION</button>
+</div>
+
+<script>
+    let timerObj = null;
+    function runTimer(seconds, color, status) {
+        clearInterval(timerObj);
+        document.getElementById('timer-box').style.borderColor = color;
+        document.getElementById('timer-display').style.color = color;
+        document.getElementById('timer-status').innerText = status;
+        let time = seconds; updateDisplay(time);
+        timerObj = setInterval(() => {
+            time--; updateDisplay(time);
+            if (time <= 0) {
+                clearInterval(timerObj);
+                document.getElementById('timer-status').innerText = "PUSH_NOW";
+                document.getElementById('timer-display').innerText = "GO!";
+                if(window.navigator.vibrate) window.navigator.vibrate([300, 100, 300]);
+            }
+        }, 1000);
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+    function updateDisplay(t) {
+        let m = Math.floor(t / 60); let s = t % 60;
+        document.getElementById('timer-display').innerText = m + ":" + (s < 10 ? "0" + s : s);
+    }
+    function saveSession() {
+        document.querySelectorAll('input').forEach(i => localStorage.setItem('v20_leg_elite_'+i.id, i.value));
+        alert("PROTOCOL_SYNCED_FOR_ELITE_USE");
+    }
+    window.onload = () => {
+        document.querySelectorAll('input').forEach(i => {
+            const v = localStorage.getItem('v20_leg_elite_'+i.id); if (v) i.value = v;
+        });
+    }
+</script>
+</body>
+</html>
