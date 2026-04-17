@@ -7,11 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --bg-deep: #1A1A2E;     /* Lenoper Primary Dark */
-            --accent: #00ADB5;      /* Lenoper Teal/Aqua */
-            --card-bg: #262831;     /* Lenoper Section Dark */
-            --mass: #ff3e3e;        /* High-Vis Red Badge */
-            --gold: #ffaa00;        /* High-Vis Gold Badge */
+            --bg-deep: #1A1A2E;     
+            --accent: #00ADB5;      
+            --card-bg: #262831;     
+            --mass: #ff3e3e;        
+            --gold: #ffaa00;        
             --neck: #00d9ff; 
             --abs: #00ff41; 
             --text-main: #FFFFFF;
@@ -26,20 +26,6 @@
             margin: 0; 
             padding-bottom: 120px; 
             text-transform: uppercase; 
-        }
-
-        /* GATEKEEPER UI */
-        #lock-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: var(--bg-deep);
-            z-index: 99999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
         }
         
         .container { width: 100%; max-width: 900px; margin: 0 auto; padding: 10px; }
@@ -109,7 +95,6 @@
         input.track { width: 100%; height: 60px; text-align: center; font-weight: 900; font-size: 1.4rem; border-radius: 8px; outline: none; border: 2px solid #3d4050; background: #111; color: #fff; transition: all 0.3s ease; }
         .prev-val { color: var(--accent) !important; border-color: rgba(0, 173, 181, 0.2); font-size: 1.1rem !important; }
         
-        /* PR GLOW CLASSES */
         .pr-chest { border-color: var(--accent) !important; box-shadow: 0 0 15px var(--accent) !important; background: #001a1a !important; color: #00ADB5 !important; }
         .pr-neck { border-color: var(--neck) !important; box-shadow: 0 0 15px var(--neck) !important; background: #001a2a !important; color: #00d9ff !important; }
         .pr-abs { border-color: var(--abs) !important; box-shadow: 0 0 15px var(--abs) !important; background: #001a00 !important; color: #00ff41 !important; }
@@ -124,14 +109,9 @@
 </head>
 <body>
 
-<div id="lock-overlay">
-    <h2 style="color:var(--accent); letter-spacing:5px; font-weight:900;">PROTOCOL_LOCKED</h2>
-    <p style="color:rgba(255,255,255,0.4); font-size:0.7rem; margin-top:10px;">LENOPER TECH PERFORMANCE DIVISION</p>
-</div>
-
 <div class="protocol-header">
     <p class="protocol-title">CHEST_HYPERTROPHY_V18</p>
-    <p class="protocol-sub">LENOPER TECH PERFORMANCE DIVISION</p>
+    <p class="protocol-sub">PERFORMANCE DIVISION</p>
 </div>
 
 <div class="container">
@@ -286,30 +266,8 @@
 </div>
 
 <script>
-    const ACCESS_KEY = "LENOPER2026"; 
-
-    function validateAccess() {
-        const overlay = document.getElementById('lock-overlay');
-        if (!overlay) return;
-
-        if (sessionStorage.getItem('lenoper_auth') === 'true') {
-            overlay.style.display = 'none';
-            return;
-        }
-
-        const userInput = prompt("SECURITY_CHALLENGE: ENTER ACCESS_CODE");
-        if (userInput === ACCESS_KEY) {
-            sessionStorage.setItem('lenoper_auth', 'true');
-            overlay.style.display = 'none';
-        } else {
-            alert("ACCESS_DENIED");
-            window.location.reload();
-        }
-    }
-
     let timerObj = null;
 
-    // REAL-TIME PR ENGINE
     function checkPR(baseId, glowClass) {
         const prevInput = document.getElementById(baseId + 'p');
         const nowInput = document.getElementById(baseId + 'c');
@@ -330,36 +288,48 @@
         const display = document.getElementById('timer-display');
         const box = document.getElementById('timer-box');
         
-        const hex = color.includes('var') ? getComputedStyle(document.documentElement).getPropertyValue(color.match(/\(([^)]+)\)/)[1]).trim() : '#f8f8f8';
+        const hex = color.includes('var') ? 
+            getComputedStyle(document.documentElement).getPropertyValue(color.match(/\(([^)]+)\)/)[1]).trim() : 
+            '#f8f8f8';
+            
         box.style.borderColor = (color === 'white' ? '#3d4050' : color);
         display.style.color = (color === 'white' ? '#f8f8f8' : color);
         display.style.textShadow = `0 0 15px ${hex}`;
         
+        box.style.transition = "transform 0.2s ease";
+        box.style.transform = "scale(1.05)";
+        setTimeout(() => { box.style.transform = "scale(1)"; }, 200);
+        
         document.getElementById('timer-status').innerText = status;
-        let time = seconds; updateDisplay(time);
+        let time = seconds; 
+        updateDisplay(time);
         
         timerObj = setInterval(() => {
-            time--; updateDisplay(time);
+            time--; 
+            updateDisplay(time);
             if (time <= 0) {
                 clearInterval(timerObj);
                 document.getElementById('timer-status').innerText = "INITIATE_SET";
                 display.innerText = "GO!";
+                display.style.color = "var(--mass)"; 
                 if(window.navigator.vibrate) window.navigator.vibrate([300, 100, 300]);
             }
         }, 1000);
-        window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
     function resetTimer() {
         clearInterval(timerObj);
         const d = document.getElementById('timer-display');
-        d.innerText = "00:00"; d.style.color = "#fff"; d.style.textShadow = "0 0 10px var(--accent)";
+        d.innerText = "00:00"; 
+        d.style.color = "#fff"; 
+        d.style.textShadow = "0 0 10px var(--accent)";
         document.getElementById('timer-box').style.borderColor = "var(--accent)";
         document.getElementById('timer-status').innerText = "HYPER_FLOW: READY";
     }
 
     function updateDisplay(t) {
-        let m = Math.floor(t / 60); let s = t % 60;
+        let m = Math.floor(t / 60); 
+        let s = t % 60;
         document.getElementById('timer-display').innerText = m + ":" + (s < 10 ? "0" + s : s);
     }
 
@@ -369,21 +339,17 @@
     }
 
     window.onload = () => {
-        validateAccess();
-
-        // Load data
         document.querySelectorAll('input').forEach(i => {
             const v = localStorage.getItem('V18_CHEST_HYP_LENO_'+i.id); if (v) i.value = v;
         });
 
-        // Init Listeners
         document.querySelectorAll('input.now-val').forEach(i => {
             const baseId = i.id.substring(0, i.id.length - 1);
             let group = 'pr-chest';
             if (i.id.startsWith('n')) group = 'pr-neck';
             if (i.id.startsWith('a')) group = 'pr-abs';
             
-            checkPR(baseId, group); // Run initially
+            checkPR(baseId, group); 
 
             i.addEventListener('input', () => checkPR(baseId, group));
             const pInput = document.getElementById(baseId + 'p');

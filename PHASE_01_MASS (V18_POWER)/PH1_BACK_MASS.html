@@ -28,19 +28,6 @@
             padding-bottom: 120px; 
             text-transform: uppercase; 
         }
-
-        /* GATEKEEPER SHIELD */
-        #lock-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: var(--bg-deep);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
         
         .container { width: 100%; max-width: 900px; margin: 0 auto; padding: 10px; }
 
@@ -103,7 +90,6 @@
         input.track { width: 100%; height: 60px; text-align: center; font-weight: 900; font-size: 1.4rem; border-radius: 8px; outline: none; border: 2px solid #3d4050; background: #111; color: #fff; transition: all 0.3s ease; }
         .prev-val { color: var(--accent) !important; border-color: rgba(0, 173, 181, 0.2); font-size: 1.1rem !important; }
         
-        /* PR ENGINE GLOW EFFECTS */
         .pr-back { border-color: var(--accent) !important; box-shadow: 0 0 15px var(--accent) !important; background: #001a1a !important; color: #00ffcc !important; }
         .pr-neck { border-color: var(--magenta) !important; box-shadow: 0 0 15px var(--magenta) !important; background: #1a001a !important; color: #ff00ff !important; }
 
@@ -122,11 +108,6 @@
 </head>
 <body>
 
-<div id="lock-overlay">
-    <h2 style="color:var(--accent); letter-spacing:5px; font-weight:900;">PROTOCOL_LOCKED</h2>
-    <p style="color:rgba(255,255,255,0.4); font-size:0.7rem; margin-top:10px;">LENOPER TECH PERFORMANCE DIVISION</p>
-</div>
-
 <div class="protocol-header">
     <p class="protocol-title">BACK_MASS: V28</p>
     <p class="protocol-sub">LENOPER TECH PERFORMANCE DIVISION</p>
@@ -134,9 +115,9 @@
 
 <div class="container">
     <ul class="notes-list">
-        <li><b>Phase 1 (Compound):</b> Maximize mechanical tension. 2-min rest is mandatory to maintain top-tier output on Rows and Deadlifts.</li>
-        <li><b>Phase 2 (Isolation):</b> Prioritize the "Stretch-Mediated Hypertrophy." Focus on the long muscle length during Pulldowns.</li>
-        <li><b>PR Engine:</b> System highlights inputs in <b>TEAL</b> (Back) or <b>MAGENTA</b> (Neck/Core) when PRV load is exceeded.</li>
+        <li><b>Phase 1 (Compound):</b> Maximize mechanical tension. 2-min rest is mandatory.</li>
+        <li><b>Phase 2 (Isolation):</b> Prioritize "Stretch-Mediated Hypertrophy."</li>
+        <li><b>PR Engine:</b> System highlights inputs when PRV load is exceeded.</li>
     </ul>
 
     <div class="timer-module" id="timer-box">
@@ -151,7 +132,7 @@
             <span class="ex-name">Bent-Over Barbell Row</span>
             <span class="ex-meta">5 SETS :: 12, 10, 8, 6, 6</span>
             <div class="badge-box"><span class="badge b-growth">Heavy Thickness</span><span class="badge b-tension">Lats/Middle</span></div>
-            <div class="semi-note n-gold"><b>POWER CUE:</b> Pull the bar to your lower belly button. Squeeze shoulder blades at the top.</div>
+            <div class="semi-note n-gold"><b>POWER CUE:</b> Pull the bar to your lower belly button.</div>
             <div class="action-row">
                 <div class="input-pair">
                     <input type="text" id="b1p" class="track prev-val" placeholder="PRV" inputmode="decimal">
@@ -168,7 +149,7 @@
             <span class="ex-name">Barbell Deadlift</span>
             <span class="ex-meta">4 SETS :: 10, 8, 8, 6</span>
             <div class="badge-box"><span class="badge b-growth">Max Load</span><span class="badge b-note">Core Brace</span></div>
-            <div class="semi-note n-stress"><b>STRESS CUE:</b> Brace core hard. Look 3 feet ahead on floor to maintain neutral spine.</div>
+            <div class="semi-note n-stress"><b>STRESS CUE:</b> Brace core hard.</div>
             <div class="action-row">
                 <div class="input-pair">
                     <input type="text" id="b2p" class="track prev-val" inputmode="decimal">
@@ -185,7 +166,7 @@
             <span class="ex-name">Pulldown To Front</span>
             <span class="ex-meta">3 SETS :: 8, 8, 10</span>
             <div class="badge-box"><span class="badge b-tension">Width</span><span class="badge b-note">Stretch Focus</span></div>
-            <div class="semi-note n-intel"><b>STRETCH CUE:</b> Lead with elbows. Let the weight pull your shoulders up slightly at the top.</div>
+            <div class="semi-note n-intel"><b>STRETCH CUE:</b> Lead with elbows.</div>
             <div class="action-row">
                 <div class="input-pair">
                     <input type="text" id="b3p" class="track prev-val" inputmode="decimal">
@@ -202,7 +183,7 @@
             <span class="ex-name">Seated Cable Row</span>
             <span class="ex-meta">3 SETS :: 8, 10, 10</span>
             <div class="badge-box"><span class="badge b-growth">Peak Squeeze</span><span class="badge b-tension">Inner Lats</span></div>
-            <div class="semi-note n-intel"><b>INTEL:</b> Torso stationary. Imagine trying to touch your elbows together behind your back.</div>
+            <div class="semi-note n-intel"><b>INTEL:</b> Torso stationary.</div>
             <div class="action-row">
                 <div class="input-pair">
                     <input type="text" id="b4p" class="track prev-val" inputmode="decimal">
@@ -219,7 +200,7 @@
             <span class="ex-name">Seated Cable Good Morning</span>
             <span class="ex-meta">2 SETS :: 10, 10</span>
             <div class="badge-box"><span class="badge b-tension">Cable Tension</span><span class="badge b-note">Hinge</span></div>
-            <div class="semi-note n-intel"><b>INTEL:</b> Hold bar against upper chest. Hinge forward into a deep stretch.</div>
+            <div class="semi-note n-intel"><b>INTEL:</b> Hinge forward into a deep stretch.</div>
             <div class="action-row">
                 <div class="input-pair">
                     <input type="text" id="b5p" class="track prev-val" inputmode="decimal">
@@ -239,7 +220,6 @@
             <span class="ex-name">High/Low Seated Neck Row</span>
             <span class="ex-meta">8 SETS x 20 REPS</span>
             <div class="badge-box"><span class="badge b-growth">Volume Stability</span><span class="badge b-note">Structural</span></div>
-            <div class="semi-note n-intel" style="border-left-color: var(--magenta);"><b>NECK CUE:</b> Chin tucked. Slow rhythmic tempo. Neck responds to volume.</div>
             <div class="action-row">
                 <div class="input-pair">
                     <input type="text" id="n1p" class="track prev-val" inputmode="decimal" style="color:var(--magenta) !important; border-color:rgba(255, 0, 255, 0.2);">
@@ -255,7 +235,6 @@
             <span class="ex-name">Weighted Russian Twist</span>
             <span class="ex-meta">4 SETS :: 20 REPS</span>
             <div class="badge-box"><span class="badge b-growth">Core Mass</span><span class="badge b-note">Rotational</span></div>
-            <div class="semi-note n-stress"><b>STRESS CUE:</b> Follow the weight with your chest. Maintain a "V" sit.</div>
             <div class="action-row">
                 <div class="input-pair">
                     <input type="text" id="fa1p" class="track prev-val" inputmode="decimal" style="color:var(--magenta) !important; border-color:rgba(255, 0, 255, 0.2);">
@@ -271,27 +250,6 @@
 </div>
 
 <script>
-    // --- GATEKEEPER PROTOCOL ---
-    const ACCESS_KEY = "LENOPER2026"; 
-
-    function validateAccess() {
-        const overlay = document.getElementById('lock-overlay');
-        if (sessionStorage.getItem('lenoper_auth') === 'true') {
-            overlay.remove();
-            return;
-        }
-
-        const userInput = prompt("SECURITY_CHALLENGE: ENTER ACCESS_CODE");
-        if (userInput === ACCESS_KEY) {
-            sessionStorage.setItem('lenoper_auth', 'true');
-            overlay.remove();
-        } else {
-            alert("ACCESS_DENIED");
-            window.location.reload();
-        }
-    }
-    window.addEventListener('DOMContentLoaded', validateAccess);
-
     let timerObj = null;
 
     function checkPR(baseId, glowClass) {
@@ -312,31 +270,45 @@
         clearInterval(timerObj);
         const display = document.getElementById('timer-display');
         const box = document.getElementById('timer-box');
-        const hex = color.includes('var') ? getComputedStyle(document.documentElement).getPropertyValue(color.match(/\(([^)]+)\)/)[1]).trim() : '#f8f8f8';
+        
+        const hex = color.includes('var') ? 
+            getComputedStyle(document.documentElement).getPropertyValue(color.match(/\(([^)]+)\)/)[1]).trim() : 
+            '#f8f8f8';
         
         box.style.borderColor = (color === 'white' ? '#3d4050' : color);
         display.style.color = (color === 'white' ? '#f8f8f8' : color);
         display.style.textShadow = `0 0 15px ${hex}`;
         
+        // Pulse visual feedback
+        box.style.transition = "transform 0.2s ease";
+        box.style.transform = "scale(1.05)";
+        setTimeout(() => { box.style.transform = "scale(1)"; }, 200);
+
         document.getElementById('timer-status').innerText = status;
-        let time = seconds; updateDisplay(time);
+        let time = seconds; 
+        updateDisplay(time);
         
         timerObj = setInterval(() => {
-            time--; updateDisplay(time);
+            time--; 
+            updateDisplay(time);
             if (time <= 0) {
                 clearInterval(timerObj);
                 document.getElementById('timer-status').innerText = "PUSH_NOW";
                 display.innerText = "GO!";
+                display.style.color = "var(--mass)";
                 if(window.navigator.vibrate) window.navigator.vibrate([300, 100, 300]);
             }
         }, 1000);
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        
+        // window.scrollTo REMOVED to keep focus on current row
     }
 
     function resetTimer() {
         clearInterval(timerObj);
         const d = document.getElementById('timer-display');
-        d.innerText = "00:00"; d.style.color = "#fff"; d.style.textShadow = "0 0 10px var(--accent)";
+        d.innerText = "00:00"; 
+        d.style.color = "#fff"; 
+        d.style.textShadow = "0 0 10px var(--accent)";
         document.getElementById('timer-box').style.borderColor = "var(--accent)";
         document.getElementById('timer-status').innerText = "HYPER_FLOW: READY";
     }

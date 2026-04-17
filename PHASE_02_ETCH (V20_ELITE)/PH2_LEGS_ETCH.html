@@ -258,25 +258,66 @@
 </div>
 
 <script>
+    // --- GATEKEEPER PROTOCOL ---
+    const ACCESS_KEY = "LENOPER2026"; 
+
+    function validateAccess() {
+        const overlay = document.getElementById('lock-overlay');
+        if (!overlay) return;
+
+        if (sessionStorage.getItem('lenoper_auth') === 'true') {
+            overlay.style.display = 'none';
+            return;
+        }
+
+        const userInput = prompt("SECURITY_CHALLENGE: ENTER ACCESS_CODE");
+        if (userInput === ACCESS_KEY) {
+            sessionStorage.setItem('lenoper_auth', 'true');
+            overlay.style.display = 'none';
+        } else {
+            alert("ACCESS_DENIED");
+            window.location.reload();
+        }
+    }
+
     let timerObj = null;
+
     function runTimer(seconds, color, status) {
         clearInterval(timerObj);
         const display = document.getElementById('timer-display');
         const box = document.getElementById('timer-box');
+        
+        // Resolve variable colors for text shadow
+        const hex = color.includes('var') ? 
+            getComputedStyle(document.documentElement).getPropertyValue(color.match(/\(([^)]+)\)/)[1]).trim() : 
+            color;
+
         box.style.borderColor = (color === '#fff' ? '#3d4050' : color);
         display.style.color = (color === '#fff' ? '#fff' : color);
+        display.style.textShadow = `0 0 15px ${hex}`;
+
+        // VISUAL FEEDBACK: Pulse effect so you know it triggered without the jump
+        box.style.transition = "transform 0.2s ease";
+        box.style.transform = "scale(1.05)";
+        setTimeout(() => { box.style.transform = "scale(1)"; }, 200);
+
         document.getElementById('timer-status').innerText = status;
-        let time = seconds; updateDisplay(time);
+        let time = seconds; 
+        updateDisplay(time);
+
         timerObj = setInterval(() => {
-            time--; updateDisplay(time);
+            time--; 
+            updateDisplay(time);
             if (time <= 0) {
                 clearInterval(timerObj);
                 document.getElementById('timer-status').innerText = "PUSH_NOW";
                 display.innerText = "GO!";
+                display.style.color = "var(--mass)"; // Critical visual trigger
                 if(window.navigator.vibrate) window.navigator.vibrate([300, 100, 300]);
             }
         }, 1000);
-        window.scrollTo({top: 0, behavior: 'smooth'});
+
+        // REMOVED: window.scrollTo to keep focus on current leg exercise
     }
 
     function resetTimer() {
@@ -284,12 +325,14 @@
         const display = document.getElementById('timer-display');
         display.innerText = "00:00";
         display.style.color = "#fff";
+        display.style.textShadow = "0 0 10px var(--accent)";
         document.getElementById('timer-box').style.borderColor = "#3d4050";
         document.getElementById('timer-status').innerText = "SYSTEM_STANDBY";
     }
 
     function updateDisplay(t) {
-        let m = Math.floor(t / 60); let s = t % 60;
+        let m = Math.floor(t / 60); 
+        let s = t % 60;
         document.getElementById('timer-display').innerText = m + ":" + (s < 10 ? "0" + s : s);
     }
 
@@ -299,8 +342,11 @@
     }
 
     window.onload = () => {
+        validateAccess(); // Initialize security layer
+
         document.querySelectorAll('input').forEach(i => {
-            const v = localStorage.getItem('vLegs_V20_LEN_'+i.id); if (v) i.value = v;
+            const v = localStorage.getItem('vLegs_V20_LEN_'+i.id); 
+            if (v) i.value = v;
         });
     }
 </script>
