@@ -1,375 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ARMS_MASS_V24</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root { 
-            --bg-deep: #1A1A2E;     
-            --accent: #00ADB5;      /* Teal for Biceps */
-            --accent-blue: #5478FF; /* Blue for Triceps */
-            --magenta: #ff00ff;     /* Magenta for Frame */
-            --card-bg: #262831;     
-            --mass: #ff3e3e;        
-            --gold: #ffaa00;        
-            --text-main: #FFFFFF;
-            --text-sub: #F8F8F8;
-            --transit: #444;
-        }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { 
-            background: var(--bg-deep); 
-            color: var(--text-main); 
-            font-family: 'Inter', sans-serif; 
-            margin: 0; 
-            padding-bottom: 120px; 
-            text-transform: uppercase; 
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARMS_HYPERTROPHY_V31</title>
 
-        .container { width: 100%; max-width: 900px; margin: 0 auto; padding: 10px; }
-
-        /* HEADER */
-        .protocol-header { 
-            background: linear-gradient(180deg, rgba(0,173,181,0.15) 0%, rgba(0,0,0,0) 100%); 
-            border-bottom: 4px solid var(--accent); 
-            padding: 25px; 
-            text-align: center; 
-        }
-        .protocol-title { font-weight: 900; font-size: 1.5rem; letter-spacing: 5px; margin: 0; color: #fff; }
-        .protocol-sub { color: var(--text-sub); opacity: 0.6; font-size: 0.7rem; margin-top: 8px; letter-spacing: 1px; text-transform: none; }
-
-        /* TIMER STICKY */
-        .timer-module { 
-            background: #111; 
-            border: 3px solid var(--accent); 
-            padding: 15px; 
-            text-align: center; 
-            position: sticky; 
-            top: 5px; 
-            z-index: 1000; 
-            border-radius: 12px; 
-            margin-bottom: 25px; 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8); 
-        }
-        #timer-display { font-size: clamp(3.5rem, 15vw, 4.5rem); color: #fff; font-weight: 900; font-family: monospace; line-height: 1; cursor: pointer; }
-        #timer-status { font-size: 0.7rem; color: var(--accent); letter-spacing: 2px; margin-bottom: 4px; font-weight: 700; }
-        .timer-hint { font-size: 0.6rem; color: #666; margin-top: 4px; }
-
-        /* SECTIONS */
-        .section-heading { font-size: 1.1rem; margin: 35px 0 12px 0; border-left: 8px solid; padding: 15px; font-weight: 900; background: rgba(255,255,255,0.05); }
-        .bicep-h { border-color: var(--accent); }
-        .tricep-h { border-color: var(--accent-blue); }
-        .frame-h { border-color: var(--magenta); }
-
-        /* CARDS */
-        .card { background: var(--card-bg); border: 1px solid #3d4050; border-radius: 10px; margin-bottom: 25px; overflow: hidden; }
-        .row { display: flex; flex-direction: column; padding: 22px; border-bottom: 1px solid #3d4050; }
-        
-        .ex-name { font-weight: 900; font-size: 1.2rem; color: #fff; }
-        .ex-meta { font-size: 0.9rem; color: var(--accent); display: block; margin-top: 4px; font-weight: 700; }
-        
-        .badge-box { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; }
-        .badge { font-size: 0.65rem; padding: 5px 12px; border-radius: 4px; font-weight: 900; }
-        .b-growth { background: var(--mass); color: #fff; } 
-        .b-tension { background: var(--gold); color: #000; }
-
-        .cue-box { text-transform: none; font-size: 0.85rem; line-height: 1.5; margin: 15px 0; padding: 12px; background: rgba(0,0,0,0.2); border-left: 3px solid #666; color: #ccc; }
-        .cue-box b { color: #fff; }
-
-        /* INPUTS */
-        .action-row { display: flex; gap: 10px; align-items: center; margin-top: 15px; }
-        .input-pair { display: flex; gap: 8px; flex-grow: 1; }
-        input.track { width: 100%; height: 60px; text-align: center; font-weight: 900; font-size: 1.4rem; border-radius: 8px; outline: none; border: 2px solid #3d4050; background: #111; color: #fff; }
-        .i-prev { color: var(--accent) !important; border-color: rgba(0, 173, 181, 0.2); font-size: 1.1rem !important; }
-        
-        /* PR GLOWS */
-        .pr-bicep { border-color: var(--accent) !important; box-shadow: 0 0 15px rgba(0,173,181,0.4); }
-        .pr-tricep { border-color: var(--accent-blue) !important; box-shadow: 0 0 15px rgba(84,120,255,0.4); }
-        .pr-frame { border-color: var(--magenta) !important; box-shadow: 0 0 15px rgba(255,0,255,0.4); }
-
-        /* BUTTONS */
-        .timer-group { display: flex; gap: 8px; }
-        .row-timer-btn { width: 80px; height: 60px; color: #fff; border: none; border-radius: 8px; font-weight: 900; font-size: 0.8rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1; }
-        .btn-rest { background: var(--accent); box-shadow: 0 5px 0 #007a80; }
-        .btn-next { background: var(--transit); box-shadow: 0 5px 0 #222; color: #888; }
-
-        .save-footer { background: var(--accent); color: #fff; border: none; padding: 25px; width: 100%; font-weight: 900; font-size: 1.5rem; cursor: pointer; border-radius: 12px; margin-top: 30px; box-shadow: 0 8px 0 #007a80; }
-    </style>
+<style>
+body{background:#111;color:#fff;font-family:Arial;margin:0;padding:20px;text-transform:uppercase}
+.section{font-size:22px;text-align:center;font-weight:900;margin:25px 0;color:#fff;letter-spacing:2px}
+.card{border:1px solid #333;padding:18px;margin-bottom:18px;border-radius:12px;background:#1a1a1a;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.ex{text-align:center;font-weight:900;font-size:20px;letter-spacing:1px;margin-bottom:6px}
+.meta{text-align:center;color:#0ff;font-size:12px}
+.intensity{text-align:center;color:#ff0;font-size:11px;margin-top:4px}
+.rest{text-align:center;color:#0f0;font-size:11px;margin-top:4px}
+.note-box{margin-top:10px;padding:10px;border-left:4px solid #0ff;background:#0a0a0a;border-radius:6px;font-size:11px;color:#ccc;line-height:1.4;text-transform:none}
+.note-strong{color:#fff;font-weight:bold}
+.row{display:flex;gap:6px;margin-top:10px}
+input{width:50%;padding:10px;background:#000;color:#fff;border:1px solid #444;border-radius:6px;text-align:center;font-weight:bold}
+.btn{padding:8px 10px;margin-top:10px;background:#222;color:#fff;border:none;border-radius:6px;cursor:pointer;width:100%}
+.timer{font-size:14px;margin-top:8px;color:#fff;text-align:center;font-weight:bold}
+.save-footer{width:100%;padding:12px;background:#0ff;color:#000;font-weight:900;border:none;border-radius:8px;margin-top:25px;cursor:pointer}
+</style>
 </head>
+
 <body>
 
-<div class="protocol-header">
-    <p class="protocol-title">ARMS_MASS: V24</p>
-    <div class="protocol-sub">
-        PHASE 1 (VOLUME DENSITY): Maximal mechanical tension.<br>
-        PHASE 2 (PEAK CONTRACTION): Prioritize the Squeeze.<br>
-        PR ENGINE: Biceps (Teal), Triceps (Blue), Frame (Magenta).
-    </div>
+<h1 style="text-align:center">ARMS HYPERTROPHY SYSTEM V31</h1>
+
+<!-- ========================= -->
+<!--        BICEPS BLOCK       -->
+<!-- ========================= -->
+
+<div class="section">BICEPS HYPERTROPHY BLOCK</div>
+
+<!-- 1. Standing Barbell Curl -->
+<div class="card">
+<div class="ex">Standing Barbell Curl</div>
+<div class="meta">10 / 10 / 8 / 6 / 6</div>
+<div class="intensity">HEAVY MECHANICAL TENSION</div>
+<div class="rest">90s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> squeeze glutes • eliminate sway • strict curl</div>
+<div class="row"><input id="b1p" placeholder="PREV KG"><input id="b1c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,90)">REST TIMER</button><div class="timer">00:00</div>
 </div>
 
-<div class="container">
-    <div class="timer-module" id="timer-box">
-        <div id="timer-status">HYPER_FLOW: READY</div>
-        <div id="timer-display" onclick="resetTimer()">00:00</div>
-        <div class="timer-hint">TAP DISPLAY TO RESET</div>
-    </div>
-
-    <div class="section-heading bicep-h">BICEPS: MASS GAIN</div>
-    <div class="card">
-        <div class="row">
-            <span class="ex-name">Standing Barbell Curl</span>
-            <span class="ex-meta">5 SETS :: 10, 10, 8, 6, 6</span>
-            <div class="badge-box"><span class="badge b-growth">Heavy Power</span><span class="badge b-tension">Glute Squeeze</span></div>
-            <div class="cue-box"><b>POWER CUE:</b> Squeeze glutes and core to eliminate body sway.</div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="b1p" class="track i-prev" placeholder="PRV">
-                    <input type="text" id="b1c" class="track i-now" placeholder="NOW">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" onclick="runTimer(90, 'var(--accent)', 'REST')">90s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(120, 'white', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <span class="ex-name">EZ-Bar Preacher Curl</span>
-            <span class="ex-meta">3 SETS :: 6, 8, 10</span>
-            <div class="badge-box"><span class="badge b-growth">Deep Stretch</span><span class="badge b-tension">No Top Rest</span></div>
-            <div class="cue-box"><b>STRESS CUE:</b> Stop the bar 2 inches before the top to keep tension.</div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="b2p" class="track i-prev">
-                    <input type="text" id="b2c" class="track i-now">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" onclick="runTimer(60, 'var(--accent)', 'REST')">60s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(90, 'white', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <span class="ex-name">Concentration Curl</span>
-            <span class="ex-meta">2 SETS :: 12, 12</span>
-            <div class="badge-box"><span class="badge b-growth">Peak Squeeze</span><span class="badge b-tension">Pinky Rotation</span></div>
-            <div class="cue-box"><b>INTEL:</b> Focus on rotating the pinky up at the top.</div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="b3p" class="track i-prev">
-                    <input type="text" id="b3c" class="track i-now">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" onclick="runTimer(60, 'var(--accent)', 'REST')">60s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(90, 'white', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <span class="ex-name">Hammer Curl</span>
-            <span class="ex-meta">3 SETS :: 10, 10, 8</span>
-            <div class="badge-box"><span class="badge b-growth">Brachialis</span><span class="badge b-tension">Max Grip</span></div>
-            <div class="cue-box"><b>INTEL:</b> Grip the dumbbells as hard as possible.</div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="b4p" class="track i-prev">
-                    <input type="text" id="b4c" class="track i-now">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" onclick="runTimer(60, 'var(--accent)', 'REST')">60s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(90, 'white', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="section-heading tricep-h">TRICEPS: MASS GAIN</div>
-    <div class="card">
-        <div class="row">
-            <span class="ex-name">Close-Grip Bench Press</span>
-            <span class="ex-meta">5 SETS :: 10, 10, 8, 6, 6</span>
-            <div class="badge-box"><span class="badge b-growth">Explosive Power</span><span class="badge b-tension">Elbows Tucked</span></div>
-            <div class="cue-box"><b>POWER CUE:</b> Keep elbows tucked to 45 degrees.</div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="t1p" class="track i-prev">
-                    <input type="text" id="t1c" class="track i-now">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" style="background:var(--accent-blue); box-shadow:0 5px 0 #2a44a1;" onclick="runTimer(90, 'var(--accent-blue)', 'REST')">90s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(120, 'white', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <span class="ex-name">Bench Dip</span>
-            <span class="ex-meta">3 SETS :: 10, 10, 10</span>
-            <div class="badge-box"><span class="badge b-growth">Hard Lockout</span><span class="badge b-tension">Body Weight+</span></div>
-            <div class="cue-box"><b>STRESS CUE:</b> Squeeze triceps until they lock out completely.</div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="t2p" class="track i-prev">
-                    <input type="text" id="t2c" class="track i-now">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" style="background:var(--accent-blue); box-shadow:0 5px 0 #2a44a1;" onclick="runTimer(60, 'var(--accent-blue)', 'REST')">60s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(90, 'white', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <span class="ex-name">Seated EZ-Bar French Press</span>
-            <span class="ex-meta">3 SETS :: 6, 8, 10</span>
-            <div class="badge-box"><span class="badge b-growth">Long Head</span><span class="badge b-tension">Deep Stretch</span></div>
-            <div class="cue-box"><b>STRESS CUE:</b> Focus on the deep stretch at the bottom.</div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="t3p" class="track i-prev">
-                    <input type="text" id="t3c" class="track i-now">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" style="background:var(--accent-blue); box-shadow:0 5px 0 #2a44a1;" onclick="runTimer(60, 'var(--accent-blue)', 'REST')">60s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(90, 'white', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <span class="ex-name">Rope Pressdown</span>
-            <span class="ex-meta">3 SETS :: 8, 10, 10</span>
-            <div class="badge-box"><span class="badge b-growth">Pull Apart</span><span class="badge b-tension">Pump Focus</span></div>
-            <div class="cue-box"><b>INTEL:</b> Pull the rope apart at the bottom of the rep.</div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="t4p" class="track i-prev">
-                    <input type="text" id="t4c" class="track i-now">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" style="background:var(--accent-blue); box-shadow:0 5px 0 #2a44a1;" onclick="runTimer(60, 'var(--accent-blue)', 'REST')">60s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(90, 'white', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="section-heading frame-h">THE FRAME: NECK & CORE</div>
-    <div class="card">
-        <div class="row">
-            <span class="ex-name">High/Low Seated Neck Row</span>
-            <span class="ex-meta">8 SETS X 20 REPS</span>
-            <div class="badge-box"><span class="badge b-growth">Density</span><span class="badge b-tension">Stability</span></div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="n1p" class="track i-prev">
-                    <input type="text" id="n1c" class="track i-now">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" style="background:var(--magenta); box-shadow:0 5px 0 #b300b3;" onclick="runTimer(45, 'var(--magenta)', 'REST')">45s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(60, 'white', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <span class="ex-name">Weighted Russian Twist</span>
-            <span class="ex-meta">4 SETS X 20 REPS</span>
-            <div class="badge-box"><span class="badge b-growth">Core Mass</span><span class="badge b-tension">Rotational</span></div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="a1p" class="track i-prev">
-                    <input type="text" id="a1c" class="track i-now">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" style="background:var(--magenta); box-shadow:0 5px 0 #b300b3;" onclick="runTimer(45, 'var(--magenta)', 'REST')">45s<span>SET</span></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <button onclick="saveSession()" class="save-footer">SAVE_MASS_ARM_DATA</button>
+<!-- 2. Incline DB Curl (Lengthened Bias) -->
+<div class="card">
+<div class="ex">Incline DB Curl (Lengthened Bias)</div>
+<div class="meta">10 / 8 / 8</div>
+<div class="intensity">STRETCH FOCUS</div>
+<div class="rest">90s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> 3–4s eccentric • elbows behind torso • deep stretch</div>
+<div class="row"><input id="b2p" placeholder="PREV KG"><input id="b2c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,90)">REST TIMER</button><div class="timer">00:00</div>
 </div>
+
+<!-- 3. EZ-Bar Preacher Curl -->
+<div class="card">
+<div class="ex">EZ-Bar Preacher Curl</div>
+<div class="meta">6 / 8 / 10</div>
+<div class="intensity">MID-RANGE TENSION</div>
+<div class="rest">60s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> stop 2 inches before top • no rest at peak</div>
+<div class="row"><input id="b3p" placeholder="PREV KG"><input id="b3c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,60)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- 4. Cable Supinating Curl -->
+<div class="card">
+<div class="ex">Cable Supinating Curl</div>
+<div class="meta">12 / 12 / 10</div>
+<div class="intensity">CONSTANT TENSION</div>
+<div class="rest">60s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> rotate pinky up • squeeze peak 1s</div>
+<div class="row"><input id="b4p" placeholder="PREV KG"><input id="b4c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,60)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- 5. Hammer Curl -->
+<div class="card">
+<div class="ex">Hammer Curl</div>
+<div class="meta">10 / 10 / 8</div>
+<div class="intensity">BRACHIALIS + FOREARM MASS</div>
+<div class="rest">60s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> crush grip • neutral wrist • no swing</div>
+<div class="row"><input id="b5p" placeholder="PREV KG"><input id="b5c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,60)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- ========================= -->
+<!--       TRICEPS BLOCK       -->
+<!-- ========================= -->
+
+<div class="section">TRICEPS HYPERTROPHY BLOCK</div>
+
+<!-- 1. Close-Grip Bench Press -->
+<div class="card">
+<div class="ex">Close-Grip Bench Press</div>
+<div class="meta">10 / 10 / 8 / 6 / 6</div>
+<div class="intensity">HEAVY COMPOUND</div>
+<div class="rest">90s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> elbows 45° • no flare • chest stable</div>
+<div class="row"><input id="t1p" placeholder="PREV KG"><input id="t1c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,90)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- 2. Overhead Cable Extension (Long Head Bias) -->
+<div class="card">
+<div class="ex">Overhead Cable Extension</div>
+<div class="meta">12 / 10 / 10</div>
+<div class="intensity">LONG HEAD STRETCH</div>
+<div class="rest">75s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> elbows high • deep stretch • full lockout</div>
+<div class="row"><input id="t2p" placeholder="PREV KG"><input id="t2c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,75)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- 3. Seated EZ-Bar French Press -->
+<div class="card">
+<div class="ex">Seated EZ-Bar French Press</div>
+<div class="meta">6 / 8 / 10</div>
+<div class="intensity">DEEP STRETCH</div>
+<div class="rest">60s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> long head stretch • elbows fixed</div>
+<div class="row"><input id="t3p" placeholder="PREV KG"><input id="t3c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,60)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- 4. Rope Pressdown -->
+<div class="card">
+<div class="ex">Rope Pressdown</div>
+<div class="meta">8 / 10 / 10</div>
+<div class="intensity">SHORT-RANGE LOCKOUT</div>
+<div class="rest">60s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> pull rope apart • 1s squeeze</div>
+<div class="row"><input id="t4p" placeholder="PREV KG"><input id="t4c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,60)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- 5. Machine Dip Press -->
+<div class="card">
+<div class="ex">Machine Dip Press</div>
+<div class="meta">12 / 10 / 8</div>
+<div class="intensity">MID-RANGE OVERLOAD</div>
+<div class="rest">75s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> lean slightly forward • elbows tucked</div>
+<div class="row"><input id="t5p" placeholder="PREV KG"><input id="t5c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,75)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- ========================= -->
+<!--         FRAME BLOCK       -->
+<!-- ========================= -->
+
+<div class="section">THE FRAME: NECK & CORE</div>
+
+<!-- 1. High/Low Seated Neck Row -->
+<div class="card">
+<div class="ex">High/Low Seated Neck Row</div>
+<div class="meta">8 × 20</div>
+<div class="intensity">DENSITY</div>
+<div class="rest">45s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> slow tempo • scapular control</div>
+<div class="row"><input id="n1p" placeholder="PREV KG"><input id="n1c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,45)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- 2. Weighted Russian Twist -->
+<div class="card">
+<div class="ex">Weighted Russian Twist</div>
+<div class="meta">4 × 20</div>
+<div class="intensity">ROTATIONAL CORE MASS</div>
+<div class="rest">45s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> rotate torso • not just arms</div>
+<div class="row"><input id="a1p" placeholder="PREV KG"><input id="a1c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,45)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- SAVE BUTTON -->
+<button onclick="saveArmsData()" class="save-footer">SAVE_ARMS_DATA</button>
 
 <script>
-    let timerObj = null;
+function timer(btn,sec){
+  let card=btn.parentElement;
+  let d=card.querySelector('.timer');
+  let t=sec;
+  clearInterval(btn._t);
+  update();
+  btn._t=setInterval(()=>{
+    t--; update();
+    if(t<=0){clearInterval(btn._t); d.innerText='GO';}
+  },1000);
+  function update(){
+    let m=Math.floor(t/60);
+    let s=t%60;
+    d.innerText=m+":"+(s<10?"0":"")+s;
+  }
+}
 
-    function checkPR(baseId, glowClass) {
-        const p = parseFloat(document.getElementById(baseId + 'p').value) || 0;
-        const c = parseFloat(document.getElementById(baseId + 'c').value) || 0;
-        const field = document.getElementById(baseId + 'c');
-        if (c > p && c !== 0) field.classList.add(glowClass);
-        else field.classList.remove(glowClass);
-    }
+function saveArmsData(){
+  document.querySelectorAll('input').forEach(i=>{
+    localStorage.setItem('arms_'+i.id, i.value);
+  });
+}
 
-    function runTimer(seconds, color, status) {
-        clearInterval(timerObj);
-        const display = document.getElementById('timer-display');
-        const box = document.getElementById('timer-box');
-        const hex = color.includes('var') ? getComputedStyle(document.documentElement).getPropertyValue(color.match(/\(([^)]+)\)/)[1]).trim() : '#f8f8f8';
-        
-        box.style.borderColor = (color === 'white' ? '#3d4050' : hex);
-        display.style.color = (color === 'white' ? '#f8f8f8' : hex);
-        
-        document.getElementById('timer-status').innerText = status;
-        let time = seconds; 
-        updateDisplay(time);
-        
-        timerObj = setInterval(() => {
-            time--; 
-            updateDisplay(time);
-            if (time <= 0) {
-                clearInterval(timerObj);
-                document.getElementById('timer-status').innerText = "PUSH_NOW";
-                display.innerText = "GO!";
-                display.style.color = "var(--mass)";
-                if(window.navigator.vibrate) window.navigator.vibrate([300, 100, 300]);
-            }
-        }, 1000);
-
-        // SCROLL LOCK: window.scrollTo call removed to stay at exercise position
-    }
-
-    function resetTimer() {
-        clearInterval(timerObj);
-        const d = document.getElementById('timer-display');
-        d.innerText = "00:00"; 
-        d.style.color = "#fff"; 
-        document.getElementById('timer-box').style.borderColor = "var(--accent)";
-        document.getElementById('timer-status').innerText = "HYPER_FLOW: READY";
-    }
-
-    function updateDisplay(t) {
-        let m = Math.floor(t / 60); 
-        let s = t % 60;
-        document.getElementById('timer-display').innerText = m + ":" + (s < 10 ? "0" + s : s);
-    }
-
-    function saveSession() {
-        document.querySelectorAll('input').forEach(i => localStorage.setItem('ARMS_V24_'+i.id, i.value));
-        alert("ARM_DATA_SYNCED");
-    }
-
-    window.onload = () => {
-        document.querySelectorAll('input').forEach(i => {
-            const v = localStorage.getItem('ARMS_V24_'+i.id); 
-            if (v) i.value = v;
-        });
-
-        document.querySelectorAll('input.i-now').forEach(i => {
-            const baseId = i.id.substring(0, i.id.length - 1);
-            let glow = 'pr-bicep';
-            if (i.id.startsWith('t')) glow = 'pr-tricep';
-            if (i.id.startsWith('n') || i.id.startsWith('a')) glow = 'pr-frame';
-            
-            checkPR(baseId, glow);
-            i.addEventListener('input', () => checkPR(baseId, glow));
-        });
-    }
+window.onload=()=>{
+  document.querySelectorAll('input').forEach(i=>{
+    let v=localStorage.getItem('arms_'+i.id);
+    if(v) i.value=v;
+  });
+}
 </script>
+
 </body>
 </html>

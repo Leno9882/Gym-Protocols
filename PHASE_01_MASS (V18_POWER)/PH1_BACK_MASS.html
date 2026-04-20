@@ -1,344 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BACK_MASS_V28</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root { 
-            --bg-deep: #1A1A2E;     
-            --accent: #00ADB5;      
-            --accent-alt: #5478FF;  
-            --card-bg: #262831;     
-            --mass: #ff3e3e;        
-            --gold: #ffaa00;        
-            --magenta: #ff00ff;
-            --text-main: #FFFFFF;
-            --text-sub: #F8F8F8;
-            --warning: #ff4444;
-            --transit: #ffffff;
-        }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { 
-            background: var(--bg-deep); 
-            color: var(--text-main); 
-            font-family: 'Inter', sans-serif; 
-            margin: 0; 
-            padding-bottom: 120px; 
-            text-transform: uppercase; 
-        }
-        
-        .container { width: 100%; max-width: 900px; margin: 0 auto; padding: 10px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BACK_HYPERTROPHY_V31</title>
 
-        .protocol-header { 
-            background: linear-gradient(180deg, rgba(0,173,181,0.15) 0%, rgba(0,0,0,0) 100%); 
-            border-bottom: 4px solid var(--accent); 
-            padding: 30px 25px; 
-            text-align: center; 
-        }
-        .protocol-title { font-weight: 900; font-size: 1.5rem; letter-spacing: 5px; margin: 0; color: #fff; text-shadow: 0 0 12px var(--accent); }
-        .protocol-sub { color: var(--text-sub); opacity: 0.6; font-size: 0.75rem; margin-top: 6px; letter-spacing: 2px; font-weight: bold; }
-
-        .notes-list { 
-            background: var(--card-bg); 
-            border: 1px solid rgba(255,255,255,0.1); 
-            padding: 15px 15px 15px 35px; 
-            margin: 20px 0; 
-            font-size: 0.75rem; 
-            text-transform: none; 
-            color: var(--text-sub); 
-            border-left: 6px solid var(--mass); 
-        }
-        .notes-list li { margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 4px; }
-        .notes-list b { color: var(--mass); text-transform: uppercase; }
-
-        .timer-module { 
-            background: #111; 
-            border: 3px solid var(--accent); 
-            padding: 15px; 
-            text-align: center; 
-            position: sticky; 
-            top: 5px; 
-            z-index: 1000; 
-            border-radius: 12px; 
-            margin-bottom: 25px; 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8); 
-        }
-        #timer-display { font-size: clamp(3.5rem, 15vw, 4.5rem); color: #fff; font-weight: 900; font-family: monospace; line-height: 1; cursor: pointer; text-shadow: 0 0 10px var(--accent); }
-        #timer-status { font-size: 0.7rem; color: var(--accent); letter-spacing: 2px; margin-bottom: 4px; font-weight: 700; }
-        .timer-hint { font-size: 0.5rem; color: #444; margin-top: 5px; letter-spacing: 1px; }
-
-        .section-heading { font-size: 1.1rem; margin: 35px 0 12px 0; border-left: 8px solid; padding: 15px; font-weight: 900; background: rgba(255,255,255,0.05); }
-        .back-h { color: #fff; border-color: var(--accent); box-shadow: inset 15px 0 25px rgba(0, 173, 181, 0.15); }
-        .neck-h { color: #fff; border-color: var(--magenta); box-shadow: inset 15px 0 25px rgba(255, 0, 255, 0.15); }
-
-        .card { background: var(--card-bg); border: 1px solid #3d4050; border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
-        .row { display: flex; flex-direction: column; padding: 22px; border-bottom: 1px solid #3d4050; }
-        
-        .ex-name { font-weight: 900; font-size: 1.15rem; color: #fff; }
-        .ex-meta { font-size: 0.85rem; color: var(--accent); display: block; margin-top: 3px; font-weight: 700; }
-        
-        .badge-box { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
-        .badge { font-size: 0.65rem; padding: 4px 10px; border-radius: 4px; font-weight: 900; letter-spacing: 1px; }
-        .b-growth { background: var(--mass); color: #fff; box-shadow: 0 0 8px rgba(255, 62, 62, 0.4); } 
-        .b-tension { background: var(--gold); color: #000; }
-        .b-note { border: 1px solid #555; color: #ccc; }
-
-        .action-row { display: flex; gap: 10px; align-items: center; margin-top: 15px; }
-        .input-pair { display: flex; gap: 8px; flex-grow: 1; }
-        input.track { width: 100%; height: 60px; text-align: center; font-weight: 900; font-size: 1.4rem; border-radius: 8px; outline: none; border: 2px solid #3d4050; background: #111; color: #fff; transition: all 0.3s ease; }
-        .prev-val { color: var(--accent) !important; border-color: rgba(0, 173, 181, 0.2); font-size: 1.1rem !important; }
-        
-        .pr-back { border-color: var(--accent) !important; box-shadow: 0 0 15px var(--accent) !important; background: #001a1a !important; color: #00ffcc !important; }
-        .pr-neck { border-color: var(--magenta) !important; box-shadow: 0 0 15px var(--magenta) !important; background: #1a001a !important; color: #ff00ff !important; }
-
-        .timer-group { display: flex; gap: 8px; }
-        .row-timer-btn { width: 80px; height: 60px; color: #fff; border: none; border-radius: 8px; font-weight: 900; font-size: 0.8rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1; }
-        .btn-rest { background: var(--accent); box-shadow: 0 5px 0 #007a80; }
-        .btn-next { background: #444; box-shadow: 0 5px 0 #111; color: #777; }
-
-        .semi-note { text-transform: none; font-size: 0.85rem; line-height: 1.5; margin: 15px 0; padding: 12px; border-radius: 4px; border-left: 4px solid var(--accent); background: rgba(0,0,0,0.2); }
-        .n-intel { border-color: var(--accent); color: #ccc; }
-        .n-stress { border-color: var(--warning); color: #eee; }
-        .n-gold { border-color: var(--gold); color: var(--gold); }
-
-        .save-footer { background: var(--mass); color: #fff; border: none; padding: 25px; width: 100%; font-weight: 900; font-size: 1.5rem; cursor: pointer; border-radius: 12px; margin-top: 20px; box-shadow: 0 8px 0 #8a2222; text-shadow: 0 0 10px #fff; }
-    </style>
+<style>
+body{background:#111;color:#fff;font-family:Arial;margin:0;padding:20px;text-transform:uppercase}
+.section{font-size:22px;text-align:center;font-weight:900;margin:25px 0;color:#fff;letter-spacing:2px}
+.card{border:1px solid #333;padding:18px;margin-bottom:18px;border-radius:12px;background:#1a1a1a;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.ex{text-align:center;font-weight:900;font-size:20px;letter-spacing:1px;margin-bottom:6px}
+.meta{text-align:center;color:#0ff;font-size:12px}
+.intensity{text-align:center;color:#ff0;font-size:11px;margin-top:4px}
+.rest{text-align:center;color:#0f0;font-size:11px;margin-top:4px}
+.note-box{margin-top:10px;padding:10px;border-left:4px solid #0ff;background:#0a0a0a;border-radius:6px;font-size:11px;color:#ccc;line-height:1.4;text-transform:none}
+.note-strong{color:#fff;font-weight:bold}
+.row{display:flex;gap:6px;margin-top:10px}
+input{width:50%;padding:10px;background:#000;color:#fff;border:1px solid #444;border-radius:6px;text-align:center;font-weight:bold}
+.btn{padding:8px 10px;margin-top:10px;background:#222;color:#fff;border:none;border-radius:6px;cursor:pointer;width:100%}
+.timer{font-size:14px;margin-top:8px;color:#fff;text-align:center;font-weight:bold}
+.save-footer{width:100%;padding:12px;background:#0ff;color:#000;font-weight:900;border:none;border-radius:8px;margin-top:25px;cursor:pointer}
+</style>
 </head>
+
 <body>
 
-<div class="protocol-header">
-    <p class="protocol-title">BACK_MASS: V28</p>
-    <p class="protocol-sub">LENOPER TECH PERFORMANCE DIVISION</p>
+<h1 style="text-align:center">BACK HYPERTROPHY SYSTEM V31</h1>
+
+<div class="section">BACK HYPERTROPHY BLOCK</div>
+
+<!-- 1. Bent-Over Barbell Row -->
+<div class="card">
+<div class="ex">Bent-Over Barbell Row</div>
+<div class="meta">6–8 / 6–8 / 8–10 / 10–12</div>
+<div class="intensity">HEAVY MID-RANGE OVERLOAD</div>
+<div class="rest">120–150s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> pull to lower abs • hinge locked • full stretch at bottom</div>
+<div class="row"><input id="r1p" placeholder="PREV KG"><input id="r1c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,150)">REST TIMER</button><div class="timer">00:00</div>
 </div>
 
-<div class="container">
-    <ul class="notes-list">
-        <li><b>Phase 1 (Compound):</b> Maximize mechanical tension. 2-min rest is mandatory.</li>
-        <li><b>Phase 2 (Isolation):</b> Prioritize "Stretch-Mediated Hypertrophy."</li>
-        <li><b>PR Engine:</b> System highlights inputs when PRV load is exceeded.</li>
-    </ul>
-
-    <div class="timer-module" id="timer-box">
-        <div id="timer-status">HYPER_FLOW: READY</div>
-        <div id="timer-display" onclick="resetTimer()">00:00</div>
-        <div class="timer-hint">TAP DISPLAY TO RESET</div>
-    </div>
-
-    <div class="section-heading back-h">BACK: MASS GAIN</div>
-    <div class="card">
-        <div class="row">
-            <span class="ex-name">Bent-Over Barbell Row</span>
-            <span class="ex-meta">5 SETS :: 12, 10, 8, 6, 6</span>
-            <div class="badge-box"><span class="badge b-growth">Heavy Thickness</span><span class="badge b-tension">Lats/Middle</span></div>
-            <div class="semi-note n-gold"><b>POWER CUE:</b> Pull the bar to your lower belly button.</div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="b1p" class="track prev-val" placeholder="PRV" inputmode="decimal">
-                    <input type="text" id="b1c" class="track now-val" placeholder="NOW" inputmode="decimal">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" onclick="runTimer(120, 'var(--accent)', 'HEAVY_RECOVERY')">120s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(180, 'white', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <span class="ex-name">Barbell Deadlift</span>
-            <span class="ex-meta">4 SETS :: 10, 8, 8, 6</span>
-            <div class="badge-box"><span class="badge b-growth">Max Load</span><span class="badge b-note">Core Brace</span></div>
-            <div class="semi-note n-stress"><b>STRESS CUE:</b> Brace core hard.</div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="b2p" class="track prev-val" inputmode="decimal">
-                    <input type="text" id="b2c" class="track now-val" inputmode="decimal">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" onclick="runTimer(120, 'var(--accent)', 'NEURAL_REST')">120s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(180, 'white', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <span class="ex-name">Pulldown To Front</span>
-            <span class="ex-meta">3 SETS :: 8, 8, 10</span>
-            <div class="badge-box"><span class="badge b-tension">Width</span><span class="badge b-note">Stretch Focus</span></div>
-            <div class="semi-note n-intel"><b>STRETCH CUE:</b> Lead with elbows.</div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="b3p" class="track prev-val" inputmode="decimal">
-                    <input type="text" id="b3c" class="track now-val" inputmode="decimal">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" onclick="runTimer(90, 'var(--accent)', 'GROWTH_REST')">90s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(150, 'white', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <span class="ex-name">Seated Cable Row</span>
-            <span class="ex-meta">3 SETS :: 8, 10, 10</span>
-            <div class="badge-box"><span class="badge b-growth">Peak Squeeze</span><span class="badge b-tension">Inner Lats</span></div>
-            <div class="semi-note n-intel"><b>INTEL:</b> Torso stationary.</div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="b4p" class="track prev-val" inputmode="decimal">
-                    <input type="text" id="b4c" class="track now-val" inputmode="decimal">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" onclick="runTimer(90, 'var(--accent)', 'THICK_REST')">90s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(150, 'white', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <span class="ex-name">Seated Cable Good Morning</span>
-            <span class="ex-meta">2 SETS :: 10, 10</span>
-            <div class="badge-box"><span class="badge b-tension">Cable Tension</span><span class="badge b-note">Hinge</span></div>
-            <div class="semi-note n-intel"><b>INTEL:</b> Hinge forward into a deep stretch.</div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="b5p" class="track prev-val" inputmode="decimal">
-                    <input type="text" id="b5c" class="track now-val" inputmode="decimal">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" onclick="runTimer(90, 'var(--accent)', 'CABLE_STRETCH')">90s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(180, 'white', 'TRANSIT_NECK')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="section-heading neck-h">THE FRAME: NECK & CORE</div>
-    <div class="card">
-        <div class="row">
-            <span class="ex-name">High/Low Seated Neck Row</span>
-            <span class="ex-meta">8 SETS x 20 REPS</span>
-            <div class="badge-box"><span class="badge b-growth">Volume Stability</span><span class="badge b-note">Structural</span></div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="n1p" class="track prev-val" inputmode="decimal" style="color:var(--magenta) !important; border-color:rgba(255, 0, 255, 0.2);">
-                    <input type="text" id="n1c" class="track now-val" inputmode="decimal">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" style="background:var(--magenta); box-shadow: 0 5px 0 #800080;" onclick="runTimer(45, 'var(--magenta)', 'NECK_REST')">45s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(60, 'white', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <span class="ex-name">Weighted Russian Twist</span>
-            <span class="ex-meta">4 SETS :: 20 REPS</span>
-            <div class="badge-box"><span class="badge b-growth">Core Mass</span><span class="badge b-note">Rotational</span></div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="fa1p" class="track prev-val" inputmode="decimal" style="color:var(--magenta) !important; border-color:rgba(255, 0, 255, 0.2);">
-                    <input type="text" id="fa1c" class="track now-val" inputmode="decimal">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" style="background:var(--magenta); box-shadow: 0 5px 0 #800080;" onclick="runTimer(45, 'var(--magenta)', 'CORE_REST')">45s<span>SET</span></button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <button onclick="saveSession()" class="save-footer">SAVE_BACK_MASS_DATA</button>
+<!-- 2. Weighted Pull-Up / Heavy Pulldown -->
+<div class="card">
+<div class="ex">Weighted Pull-Up / Heavy Pulldown</div>
+<div class="meta">6–8 / 6–8 / 8–10 / 10–12 (REST-PAUSE)</div>
+<div class="intensity">HEAVY VERTICAL LOAD</div>
+<div class="rest">120s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> full hang stretch • elbows down • chest up</div>
+<div class="row"><input id="r2p" placeholder="PREV KG"><input id="r2c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,120)">REST TIMER</button><div class="timer">00:00</div>
 </div>
+
+<!-- 3. Single-Arm Lat Pulldown (Lengthened Bias) -->
+<div class="card">
+<div class="ex">Single-Arm Lat Pulldown (Lengthened Bias)</div>
+<div class="meta">10 / 10 / 12</div>
+<div class="intensity">LENGTHENED LAT STRETCH</div>
+<div class="rest">90s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> lean slightly away • deep overhead stretch • drive elbow to hip</div>
+<div class="row"><input id="r3p" placeholder="PREV KG"><input id="r3c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,90)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- 4. Seated Cable Row -->
+<div class="card">
+<div class="ex">Seated Cable Row</div>
+<div class="meta">8–10 / 10–12 / 10–12</div>
+<div class="intensity">MID-RANGE BACK THICKNESS</div>
+<div class="rest">90–120s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> chest fixed • 1s squeeze • no torso swing</div>
+<div class="row"><input id="r4p" placeholder="PREV KG"><input id="r4c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,90)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- 5. Lat Pulldown (Alt Grip) -->
+<div class="card">
+<div class="ex">Lat Pulldown (Alt Grip)</div>
+<div class="meta">10–12 / 10–12 / 12–15 (DROP SET)</div>
+<div class="intensity">MODERATE → LIGHT</div>
+<div class="rest">90s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> stretch at top • smooth pull • no jerking</div>
+<div class="row"><input id="r5p" placeholder="PREV KG"><input id="r5c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,90)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- 6. Cable Lat Pullover -->
+<div class="card">
+<div class="ex">Cable Lat Pullover</div>
+<div class="meta">10–12 / 12–15 / 12–15</div>
+<div class="intensity">LAT ISOLATION</div>
+<div class="rest">75–90s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> 2s stretch hold • slight elbow bend • ribs down</div>
+<div class="row"><input id="r6p" placeholder="PREV KG"><input id="r6c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,75)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- 7. Chest-Supported T-Bar Row -->
+<div class="card">
+<div class="ex">Chest-Supported T-Bar Row</div>
+<div class="meta">10–12 / 10–12 / 12–12 (PARTIALS)</div>
+<div class="intensity">UPPER-BACK DENSITY</div>
+<div class="rest">90s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> full stretch • elbows wide • finish with partials</div>
+<div class="row"><input id="r7p" placeholder="PREV KG"><input id="r7c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,90)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- 8. Romanian Deadlift (Optional) -->
+<div class="card">
+<div class="ex">Romanian Deadlift (Optional)</div>
+<div class="meta">6–8 / 6–8 / 8–8</div>
+<div class="intensity">POSTERIOR CHAIN STRETCH</div>
+<div class="rest">120–150s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> hinge back • hamstring stretch • neutral spine</div>
+<div class="row"><input id="r8p" placeholder="PREV KG"><input id="r8c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,120)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- ========================= -->
+<!--        FRAME BLOCK        -->
+<!-- ========================= -->
+
+<div class="section">THE FRAME: NECK & CORE</div>
+
+<!-- 1. Neck Work -->
+<div class="card">
+<div class="ex">Neck Work</div>
+<div class="meta">12–15 → 20</div>
+<div class="intensity">CONTROLLED NECK DENSITY</div>
+<div class="rest">45–60s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> slow reps • no jerking • full control</div>
+<div class="row"><input id="r9p" placeholder="PREV KG"><input id="r9c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,45)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- 2. Weighted Russian Twist -->
+<div class="card">
+<div class="ex">Weighted Russian Twist</div>
+<div class="meta">4 × 15–20</div>
+<div class="intensity">ROTATIONAL CORE MASS</div>
+<div class="rest">45–60s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> rotate torso • no momentum</div>
+<div class="row"><input id="r10p" placeholder="PREV KG"><input id="r10c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,45)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- SAVE BUTTON -->
+<button onclick="saveBackData()" class="save-footer">SAVE_BACK_DATA</button>
 
 <script>
-    let timerObj = null;
+function timer(btn,sec){
+  let card=btn.parentElement;
+  let d=card.querySelector('.timer');
+  let t=sec;
+  clearInterval(btn._t);
+  update();
+  btn._t=setInterval(()=>{
+    t--; update();
+    if(t<=0){clearInterval(btn._t); d.innerText='GO';}
+  },1000);
+  function update(){
+    let m=Math.floor(t/60);
+    let s=t%60;
+    d.innerText=m+":"+(s<10?"0":"")+s;
+  }
+}
 
-    function checkPR(baseId, glowClass) {
-        const prevInput = document.getElementById(baseId + 'p');
-        const nowInput = document.getElementById(baseId + 'c');
-        if (!prevInput || !nowInput) return;
+function saveBackData(){
+  document.querySelectorAll('input').forEach(i=>{
+    localStorage.setItem('back_'+i.id, i.value);
+  });
+}
 
-        const prevVal = parseFloat(prevInput.value.replace(/[^0-9.]/g, '')) || 0;
-        const nowVal = parseFloat(nowInput.value.replace(/[^0-9.]/g, '')) || 0;
-
-        nowInput.classList.remove('pr-back', 'pr-neck');
-        if (nowVal > prevVal && nowVal > 0) {
-            nowInput.classList.add(glowClass);
-        }
-    }
-
-    function runTimer(seconds, color, status) {
-        clearInterval(timerObj);
-        const display = document.getElementById('timer-display');
-        const box = document.getElementById('timer-box');
-        
-        const hex = color.includes('var') ? 
-            getComputedStyle(document.documentElement).getPropertyValue(color.match(/\(([^)]+)\)/)[1]).trim() : 
-            '#f8f8f8';
-        
-        box.style.borderColor = (color === 'white' ? '#3d4050' : color);
-        display.style.color = (color === 'white' ? '#f8f8f8' : color);
-        display.style.textShadow = `0 0 15px ${hex}`;
-        
-        // Pulse visual feedback
-        box.style.transition = "transform 0.2s ease";
-        box.style.transform = "scale(1.05)";
-        setTimeout(() => { box.style.transform = "scale(1)"; }, 200);
-
-        document.getElementById('timer-status').innerText = status;
-        let time = seconds; 
-        updateDisplay(time);
-        
-        timerObj = setInterval(() => {
-            time--; 
-            updateDisplay(time);
-            if (time <= 0) {
-                clearInterval(timerObj);
-                document.getElementById('timer-status').innerText = "PUSH_NOW";
-                display.innerText = "GO!";
-                display.style.color = "var(--mass)";
-                if(window.navigator.vibrate) window.navigator.vibrate([300, 100, 300]);
-            }
-        }, 1000);
-        
-        // window.scrollTo REMOVED to keep focus on current row
-    }
-
-    function resetTimer() {
-        clearInterval(timerObj);
-        const d = document.getElementById('timer-display');
-        d.innerText = "00:00"; 
-        d.style.color = "#fff"; 
-        d.style.textShadow = "0 0 10px var(--accent)";
-        document.getElementById('timer-box').style.borderColor = "var(--accent)";
-        document.getElementById('timer-status').innerText = "HYPER_FLOW: READY";
-    }
-
-    function updateDisplay(t) {
-        let m = Math.floor(t / 60); let s = t % 60;
-        document.getElementById('timer-display').innerText = m + ":" + (s < 10 ? "0" + s : s);
-    }
-
-    function saveSession() {
-        document.querySelectorAll('input').forEach(i => localStorage.setItem('vBackMass_V28_GROWTH_'+i.id, i.value));
-        alert("BACK_PROTOCOL_SYNCED");
-    }
-
-    window.onload = () => {
-        document.querySelectorAll('input').forEach(i => {
-            const v = localStorage.getItem('vBackMass_V28_GROWTH_'+i.id); 
-            if (v) i.value = v;
-        });
-
-        document.querySelectorAll('input.now-val').forEach(i => {
-            const baseId = i.id.substring(0, i.id.length - 1);
-            const group = (i.id.startsWith('n') || i.id.startsWith('fa')) ? 'pr-neck' : 'pr-back';
-            
-            checkPR(baseId, group);
-            i.addEventListener('input', () => checkPR(baseId, group));
-            const pInput = document.getElementById(baseId + 'p');
-            if(pInput) pInput.addEventListener('input', () => checkPR(baseId, group));
-        });
-    }
+window.onload=()=>{
+  document.querySelectorAll('input').forEach(i=>{
+    let v=localStorage.getItem('back_'+i.id);
+    if(v) i.value=v;
+  });
+}
 </script>
+
 </body>
 </html>

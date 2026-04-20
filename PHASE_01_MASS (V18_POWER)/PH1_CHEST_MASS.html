@@ -1,361 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>HYPERTROPHY_CHEST_V18</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root { 
-            --bg-deep: #1A1A2E;     
-            --accent: #00ADB5;      
-            --card-bg: #262831;     
-            --mass: #ff3e3e;        
-            --gold: #ffaa00;        
-            --neck: #00d9ff; 
-            --abs: #00ff41; 
-            --text-main: #FFFFFF;
-            --text-sub: #F8F8F8;
-            --transit: #444;
-        }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { 
-            background: var(--bg-deep); 
-            color: var(--text-main); 
-            font-family: 'Inter', sans-serif; 
-            margin: 0; 
-            padding-bottom: 120px; 
-            text-transform: uppercase; 
-        }
-        
-        .container { width: 100%; max-width: 900px; margin: 0 auto; padding: 10px; }
-
-        .protocol-header { 
-            background: linear-gradient(180deg, rgba(0,173,181,0.15) 0%, rgba(0,0,0,0) 100%); 
-            border-bottom: 4px solid var(--accent); 
-            padding: 30px 25px; 
-            text-align: center; 
-        }
-        .protocol-title { font-weight: 900; font-size: 1.5rem; letter-spacing: 5px; margin: 0; color: #fff; text-shadow: 0 0 12px var(--accent); }
-        .protocol-sub { color: var(--text-sub); opacity: 0.6; font-size: 0.75rem; margin-top: 6px; letter-spacing: 2px; font-weight: bold; }
-
-        .notes-list { 
-            background: var(--card-bg); 
-            border: 1px solid rgba(255,255,255,0.1); 
-            padding: 15px 15px 15px 35px; 
-            margin: 20px 0; 
-            font-size: 0.75rem; 
-            text-transform: none; 
-            color: var(--text-sub); 
-            border-left: 6px solid var(--accent); 
-        }
-        .notes-list li { margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 4px; }
-        .notes-list b { color: var(--accent); text-transform: uppercase; }
-
-        .timer-module { 
-            background: #111; 
-            border: 3px solid var(--accent); 
-            padding: 15px; 
-            text-align: center; 
-            position: sticky; 
-            top: 5px; 
-            z-index: 1000; 
-            border-radius: 12px; 
-            margin-bottom: 25px; 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8); 
-        }
-        #timer-display { font-size: clamp(3.5rem, 15vw, 4.5rem); color: #fff; font-weight: 900; font-family: monospace; line-height: 1; cursor: pointer; text-shadow: 0 0 10px var(--accent); }
-        #timer-status { font-size: 0.7rem; color: var(--accent); letter-spacing: 2px; margin-bottom: 4px; font-weight: 700; }
-        .timer-hint { font-size: 0.5rem; color: #444; margin-top: 5px; letter-spacing: 1px; }
-
-        .section-heading { font-size: 1.1rem; margin: 35px 0 12px 0; border-left: 8px solid; padding: 15px; font-weight: 900; background: rgba(255,255,255,0.05); }
-        .chest-h { color: #fff; border-color: var(--accent); box-shadow: inset 15px 0 25px rgba(0, 173, 181, 0.15); }
-        .frame-h { color: #fff; border-color: var(--neck); box-shadow: inset 15px 0 25px rgba(0, 217, 255, 0.15); }
-
-        .card { background: var(--card-bg); border: 1px solid #3d4050; border-radius: 10px; margin-bottom: 25px; overflow: hidden; }
-        .row { display: flex; flex-direction: column; padding: 22px; border-bottom: 1px solid #3d4050; }
-        
-        .ex-info { margin-bottom: 12px; }
-        .ex-name { font-weight: 900; font-size: 1.2rem; color: #fff; letter-spacing: 0.5px; }
-        .ex-meta { font-size: 0.9rem; color: var(--accent); display: block; margin-top: 4px; font-weight: 700; }
-        
-        .badge-box { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; }
-        .badge { font-size: 0.65rem; padding: 5px 12px; border-radius: 4px; font-weight: 900; letter-spacing: 1px; }
-        .b-growth { background: var(--mass); color: #fff; box-shadow: 0 0 8px rgba(255, 62, 62, 0.4); } 
-        .b-tension { background: var(--gold); color: #000; }
-        .b-note { border: 1px solid #555; color: #ccc; }
-
-        .semi-note { text-transform: none; font-size: 0.85rem; line-height: 1.5; margin: 15px 0; padding: 12px; border-radius: 4px; border-left: 4px solid; background: rgba(0,0,0,0.2); }
-        .n-intel { border-color: var(--accent); color: #ddd; }
-        .n-stress { border-color: var(--mass); color: #eee; }
-        .n-gold { border-color: var(--gold); color: var(--gold); }
-
-        .action-row { display: flex; gap: 10px; align-items: center; margin-top: 15px; }
-        .input-pair { display: flex; gap: 8px; flex-grow: 1; }
-        input.track { width: 100%; height: 60px; text-align: center; font-weight: 900; font-size: 1.4rem; border-radius: 8px; outline: none; border: 2px solid #3d4050; background: #111; color: #fff; transition: all 0.3s ease; }
-        .prev-val { color: var(--accent) !important; border-color: rgba(0, 173, 181, 0.2); font-size: 1.1rem !important; }
-        
-        .pr-chest { border-color: var(--accent) !important; box-shadow: 0 0 15px var(--accent) !important; background: #001a1a !important; color: #00ADB5 !important; }
-        .pr-neck { border-color: var(--neck) !important; box-shadow: 0 0 15px var(--neck) !important; background: #001a2a !important; color: #00d9ff !important; }
-        .pr-abs { border-color: var(--abs) !important; box-shadow: 0 0 15px var(--abs) !important; background: #001a00 !important; color: #00ff41 !important; }
-
-        .timer-group { display: flex; gap: 8px; }
-        .row-timer-btn { width: 80px; height: 60px; color: #fff; border: none; border-radius: 8px; font-weight: 900; font-size: 0.8rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1; }
-        .btn-rest { background: var(--accent); box-shadow: 0 5px 0 #007a80; }
-        .btn-next { background: var(--transit); box-shadow: 0 5px 0 #222; color: #888; }
-
-        .save-footer { background: var(--accent); color: #fff; border: none; padding: 25px; width: 100%; font-weight: 900; font-size: 1.5rem; cursor: pointer; border-radius: 12px; margin-top: 30px; box-shadow: 0 8px 0 #007a80; text-shadow: 0 0 10px #fff; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHEST_HYPERTROPHY_V31</title>
+<style>
+body{background:#111;color:#fff;font-family:Arial;margin:0;padding:20px;text-transform:uppercase}
+.section{font-size:22px;text-align:center;font-weight:900;margin:25px 0;color:#fff;letter-spacing:2px}
+.card{border:1px solid #333;padding:18px;margin-bottom:18px;border-radius:12px;background:#1a1a1a;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.ex{text-align:center;font-weight:900;font-size:20px;letter-spacing:1px;margin-bottom:6px}
+.meta{text-align:center;color:#0ff;font-size:12px}
+.intensity{text-align:center;color:#ff0;font-size:11px;margin-top:4px}
+.rest{text-align:center;color:#0f0;font-size:11px;margin-top:4px}
+.note-box{margin-top:10px;padding:10px;border-left:4px solid #0ff;background:#0a0a0a;border-radius:6px;font-size:11px;color:#ccc;line-height:1.4;text-transform:none}
+.note-strong{color:#fff;font-weight:bold}
+.row{display:flex;gap:6px;margin-top:10px}
+input{width:50%;padding:10px;background:#000;color:#fff;border:1px solid #444;border-radius:6px;text-align:center;font-weight:bold}
+.btn{padding:8px 10px;margin-top:10px;background:#222;color:#fff;border:none;border-radius:6px;cursor:pointer;width:100%}
+.timer{font-size:14px;margin-top:8px;color:#fff;text-align:center;font-weight:bold}
+.save-footer{width:100%;padding:12px;background:#0ff;color:#000;font-weight:900;border:none;border-radius:8px;margin-top:25px;cursor:pointer}
+</style>
 </head>
 <body>
 
-<div class="protocol-header">
-    <p class="protocol-title">CHEST_HYPERTROPHY_V18</p>
-    <p class="protocol-sub">PERFORMANCE DIVISION</p>
+<h1 style="text-align:center">CHEST HYPERTROPHY SYSTEM V31</h1>
+
+<div class="section">HYPERTROPHY BLOCK (6–12 REPS)</div>
+
+<!-- 1. Incline Barbell Press -->
+<div class="card">
+<div class="ex">Incline Barbell Press</div>
+<div class="meta">12 / 10 / 8 / 6</div>
+<div class="intensity">HEAVY → MODERATE (PROGRESSIVE OVERLOAD)</div>
+<div class="rest">120–150s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> 3s eccentric • chest up • stop just before lockout</div>
+<div class="row"><input id="c1p" placeholder="PREV KG"><input id="c1c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,150)">REST TIMER</button><div class="timer">00:00</div>
 </div>
 
-<div class="container">
-    <ul class="notes-list">
-        <li><b>Eccentric Control:</b> 3-second negatives on all pressing movements.</li>
-        <li><b>No Lockout:</b> Maintain constant load by stopping 1 inch before full extension.</li>
-        <li><b>Stretch Focus:</b> Deep stretch at the bottom of DB movements is mandatory for growth.</li>
-    </ul>
-
-    <div class="timer-module" id="timer-box">
-        <div id="timer-status">HYPER_FLOW: READY</div>
-        <div id="timer-display" onclick="resetTimer()">00:00</div>
-        <div class="timer-hint">TAP DISPLAY TO RESET</div>
-    </div>
-
-    <div class="section-heading chest-h">CHEST: GROWTH PROTOCOL</div>
-    <div class="card">
-        <div class="row">
-            <div class="ex-info">
-                <span class="ex-name">Incline Barbell Press</span>
-                <span class="ex-meta">5 SETS :: 12, 10, 8, 6, 6</span>
-                <div class="badge-box"><span class="badge b-growth">Upper Fill</span><span class="badge b-tension">3s Eccentric</span></div>
-            </div>
-            <div class="semi-note n-gold"><b>POWER CUE:</b> Drive the bar through the ceiling. Keep your chest high throughout the set.</div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="c1p" class="track prev-val" placeholder="PRV" inputmode="decimal">
-                    <input type="text" id="c1c" class="track now-val" placeholder="NOW" inputmode="decimal">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" onclick="runTimer(120, 'var(--accent)', 'MASS_REST')">120s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(180, 'white', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="ex-info">
-                <span class="ex-name">Flat Barbell Press</span>
-                <span class="ex-meta">3 SETS :: 6, 6, 10</span>
-                <div class="badge-box"><span class="badge b-tension">Max Tension</span><span class="badge b-note">No Lockout</span></div>
-            </div>
-            <div class="semi-note n-stress"><b>STRESS CUE:</b> Controlled descent. Do not bounce the bar off your chest.</div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="c2p" class="track prev-val" inputmode="decimal">
-                    <input type="text" id="c2c" class="track now-val" inputmode="decimal">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" onclick="runTimer(120, 'var(--accent)', 'MASS_REST')">120s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(180, 'white', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="ex-info">
-                <span class="ex-name">Decline DB Press</span>
-                <span class="ex-meta">3 SETS :: 8, 8, 10</span>
-                <div class="badge-box"><span class="badge b-growth">Lower Sweep</span><span class="badge b-note">Deep Stretch</span></div>
-            </div>
-            <div class="semi-note n-intel"><b>INTEL:</b> Use a neutral grip if your shoulders feel tight. Maximize the stretch.</div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="c3p" class="track prev-val" inputmode="decimal">
-                    <input type="text" id="c3c" class="track now-val" inputmode="decimal">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" onclick="runTimer(90, 'var(--accent)', 'HYPER_REST')">90s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(150, 'white', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="ex-info">
-                <span class="ex-name">Seated Machine Press</span>
-                <span class="ex-meta">2 SETS :: 10, 10</span>
-                <div class="badge-box"><span class="badge b-tension">Constant Load</span><span class="badge b-note">Peak Squeeze</span></div>
-            </div>
-            <div class="semi-note n-intel"><b>INTEL:</b> Focus on the inner pecs by squeezing the handles together (intent).</div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="c4p" class="track prev-val" inputmode="decimal">
-                    <input type="text" id="c4c" class="track now-val" inputmode="decimal">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" onclick="runTimer(90, 'var(--accent)', 'HYPER_REST')">90s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(150, 'white', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="ex-info">
-                <span class="ex-name">Cable Crossover</span>
-                <span class="ex-meta">2 SETS :: 12, 12</span>
-                <div class="badge-box"><span class="badge b-growth">Blood Volume</span><span class="badge b-note">1s Hold</span></div>
-            </div>
-            <div class="semi-note n-stress"><b>STRESS CUE:</b> Lean slightly forward. Cross your hands to get a maximal contraction.</div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="c5p" class="track prev-val" inputmode="decimal">
-                    <input type="text" id="c5c" class="track now-val" inputmode="decimal">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" onclick="runTimer(60, 'var(--accent)', 'PUMP_REST')">60s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(180, 'white', 'TRANSIT_FRAME')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="section-heading frame-h">FRAME & PERFORMANCE</div>
-    <div class="card">
-        <div class="row">
-            <div class="ex-info">
-                <span class="ex-name">High/Low Seated Neck Row</span>
-                <span class="ex-meta">8 SETS x 20 REPS</span>
-                <div class="badge-box"><span class="badge b-growth">Density</span></div>
-            </div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="n1p" class="track prev-val" inputmode="decimal" style="color:var(--neck); border-color:rgba(0, 217, 255, 0.2);">
-                    <input type="text" id="n1c" class="track now-val" inputmode="decimal">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" style="background:var(--neck); box-shadow:0 5px 0 #008ba3;" onclick="runTimer(45, 'var(--neck)', 'FRAME_REST')">45s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(60, 'white', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="ex-info">
-                <span class="ex-name">Weighted Russian Twist</span>
-                <span class="ex-meta">4 SETS x 20 REPS</span>
-                <div class="badge-box"><span class="badge b-growth">Core Mass</span></div>
-            </div>
-            <div class="action-row">
-                <div class="input-pair">
-                    <input type="text" id="a1p" class="track prev-val" inputmode="decimal" style="color:var(--abs); border-color:rgba(0, 255, 65, 0.2);">
-                    <input type="text" id="a1c" class="track now-val" inputmode="decimal">
-                </div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-rest" style="background:var(--abs); box-shadow:0 5px 0 #008020;" onclick="runTimer(45, 'var(--abs)', 'ABS_REST')">45s<span>SET</span></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <button onclick="saveSession()" class="save-footer">SAVE_HYPERTROPHY_SYNC</button>
+<!-- 2. Flat Barbell Press -->
+<div class="card">
+<div class="ex">Flat Barbell Press</div>
+<div class="meta">8 / 8 / 6 / 10</div>
+<div class="intensity">HEAVY FOCUS</div>
+<div class="rest">120s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> controlled descent • no bounce • constant tension</div>
+<div class="row"><input id="c2p" placeholder="PREV KG"><input id="c2c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,120)">REST TIMER</button><div class="timer">00:00</div>
 </div>
+
+<!-- 3. Decline DB Press -->
+<div class="card">
+<div class="ex">Decline DB Press</div>
+<div class="meta">10 / 8 / 8</div>
+<div the="intensity">MODERATE</div>
+<div class="rest">90s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> deep stretch • neutral grip if needed</div>
+<div class="row"><input id="c3p" placeholder="PREV KG"><input id="c3c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,90)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- 4. DB Fly (Lengthened Bias) -->
+<div class="card">
+<div class="ex">DB Fly (Lengthened Bias)</div>
+<div class="meta">12 / 10 / 10</div>
+<div class="intensity">STRETCH FOCUS</div>
+<div class="rest">90s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> 3–4s eccentric • deep stretch • slight elbow bend</div>
+<div class="row"><input id="c4p" placeholder="PREV KG"><input id="c4c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,90)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- 5. Machine Press -->
+<div class="card">
+<div class="ex">Machine Press</div>
+<div class="meta">12 / 10 / 10</div>
+<div class="intensity">MODERATE → LIGHT FINISH</div>
+<div class="rest">90s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> squeeze peak • constant tension</div>
+<div class="row"><input id="c5p" placeholder="PREV KG"><input id="c5c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,90)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- 6. High-to-Low Cable Press -->
+<div class="card">
+<div class="ex">High-to-Low Cable Press</div>
+<div class="meta">15 / 12 / 12</div>
+<div class="intensity">UPPER CHEST ISOLATION</div>
+<div class="rest">60–75s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> cables above shoulders • press downward 20–30° • clavicle squeeze</div>
+<div class="row"><input id="c6p" placeholder="PREV KG"><input id="c6c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,75)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- 7. Cable Crossover -->
+<div class="card">
+<div class="ex">Cable Crossover</div>
+<div class="meta">15 / 12 / 12</div>
+<div class="intensity">LIGHT PUMP WORK</div>
+<div class="rest">60s REST</div>
+<div class="note-box"><span class="note-strong">CUE:</span> slow squeeze • 1s peak hold</div>
+<div class="row"><input id="c7p" placeholder="PREV KG"><input id="c7c" placeholder="NOW KG"></div>
+<button class="btn" onclick="timer(this,60)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- SAVE BUTTON -->
+<button onclick="saveChestData()" class="save-footer">SAVE_CHEST_DATA</button>
 
 <script>
-    let timerObj = null;
+function timer(btn,sec){
+  let card=btn.parentElement;
+  let d=card.querySelector('.timer');
+  let t=sec;
+  clearInterval(btn._t);
+  update();
+  btn._t=setInterval(()=>{
+    t--; update();
+    if(t<=0){clearInterval(btn._t); d.innerText='GO';}
+  },1000);
+  function update(){
+    let m=Math.floor(t/60);
+    let s=t%60;
+    d.innerText=m+":"+(s<10?"0":"")+s;
+  }
+}
 
-    function checkPR(baseId, glowClass) {
-        const prevInput = document.getElementById(baseId + 'p');
-        const nowInput = document.getElementById(baseId + 'c');
-        if (!prevInput || !nowInput) return;
+function saveChestData(){
+  document.querySelectorAll('input').forEach(i=>{
+    localStorage.setItem('chest_'+i.id, i.value);
+  });
+}
 
-        const prevVal = parseFloat(prevInput.value.replace(/[^0-9.]/g, '')) || 0;
-        const nowVal = parseFloat(nowInput.value.replace(/[^0-9.]/g, '')) || 0;
-
-        nowInput.classList.remove('pr-chest', 'pr-neck', 'pr-abs');
-
-        if (nowVal > prevVal && nowVal > 0) {
-            nowInput.classList.add(glowClass);
-        }
-    }
-
-    function runTimer(seconds, color, status) {
-        clearInterval(timerObj);
-        const display = document.getElementById('timer-display');
-        const box = document.getElementById('timer-box');
-        
-        const hex = color.includes('var') ? 
-            getComputedStyle(document.documentElement).getPropertyValue(color.match(/\(([^)]+)\)/)[1]).trim() : 
-            '#f8f8f8';
-            
-        box.style.borderColor = (color === 'white' ? '#3d4050' : color);
-        display.style.color = (color === 'white' ? '#f8f8f8' : color);
-        display.style.textShadow = `0 0 15px ${hex}`;
-        
-        box.style.transition = "transform 0.2s ease";
-        box.style.transform = "scale(1.05)";
-        setTimeout(() => { box.style.transform = "scale(1)"; }, 200);
-        
-        document.getElementById('timer-status').innerText = status;
-        let time = seconds; 
-        updateDisplay(time);
-        
-        timerObj = setInterval(() => {
-            time--; 
-            updateDisplay(time);
-            if (time <= 0) {
-                clearInterval(timerObj);
-                document.getElementById('timer-status').innerText = "INITIATE_SET";
-                display.innerText = "GO!";
-                display.style.color = "var(--mass)"; 
-                if(window.navigator.vibrate) window.navigator.vibrate([300, 100, 300]);
-            }
-        }, 1000);
-    }
-
-    function resetTimer() {
-        clearInterval(timerObj);
-        const d = document.getElementById('timer-display');
-        d.innerText = "00:00"; 
-        d.style.color = "#fff"; 
-        d.style.textShadow = "0 0 10px var(--accent)";
-        document.getElementById('timer-box').style.borderColor = "var(--accent)";
-        document.getElementById('timer-status').innerText = "HYPER_FLOW: READY";
-    }
-
-    function updateDisplay(t) {
-        let m = Math.floor(t / 60); 
-        let s = t % 60;
-        document.getElementById('timer-display').innerText = m + ":" + (s < 10 ? "0" + s : s);
-    }
-
-    function saveSession() {
-        document.querySelectorAll('input').forEach(i => localStorage.setItem('V18_CHEST_HYP_LENO_'+i.id, i.value));
-        alert("HYPERTROPHY_DATA_LOCKED");
-    }
-
-    window.onload = () => {
-        document.querySelectorAll('input').forEach(i => {
-            const v = localStorage.getItem('V18_CHEST_HYP_LENO_'+i.id); if (v) i.value = v;
-        });
-
-        document.querySelectorAll('input.now-val').forEach(i => {
-            const baseId = i.id.substring(0, i.id.length - 1);
-            let group = 'pr-chest';
-            if (i.id.startsWith('n')) group = 'pr-neck';
-            if (i.id.startsWith('a')) group = 'pr-abs';
-            
-            checkPR(baseId, group); 
-
-            i.addEventListener('input', () => checkPR(baseId, group));
-            const pInput = document.getElementById(baseId + 'p');
-            if(pInput) pInput.addEventListener('input', () => checkPR(baseId, group));
-        });
-    }
+window.onload=()=>{
+  document.querySelectorAll('input').forEach(i=>{
+    let v=localStorage.getItem('chest_'+i.id);
+    if(v) i.value=v;
+  });
+}
 </script>
+
 </body>
 </html>

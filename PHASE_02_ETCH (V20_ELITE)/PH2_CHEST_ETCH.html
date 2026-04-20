@@ -1,367 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CHEST_PERFORMANCE_V18_LENOPER</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root { 
-            --bg-deep: #1A1A2E;     
-            --accent: #00ADB5;      
-            --accent-alt: #5478FF;  
-            --card-bg: #262831;     
-            --chest: #ff6600; 
-            --mass: #ff3e3e;        
-            --gold: #ffaa00;        
-            --stamina: #ff00ff;
-            --abs: #00ff41; 
-            --cyan: #00d9ff;
-            --text-main: #FFFFFF;
-            --transit: #333;
-        }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { 
-            background: var(--bg-deep); 
-            color: var(--text-main); 
-            font-family: 'Inter', sans-serif; 
-            margin: 0; 
-            padding-bottom: 120px; 
-            text-transform: uppercase; 
-        }
-        
-        .container { width: 100%; max-width: 900px; margin: 0 auto; padding: 10px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHEST_DEFINITION_V32</title>
 
-        /* HEADER */
-        .protocol-header { 
-            background: var(--card-bg); 
-            border: 1px solid #3d4050; 
-            border-radius: 12px; 
-            padding: 20px; 
-            margin-bottom: 20px; 
-            border-left: 6px solid var(--chest); 
-        }
-        .protocol-title { font-weight: 900; font-size: 1.4rem; letter-spacing: 2px; margin: 0; }
-        .protocol-sub { color: var(--accent); font-size: 0.7rem; letter-spacing: 1px; font-weight: bold; margin-top: 4px; display: block; }
-        
-        .notes-list { margin: 15px 0 0 0; padding-left: 18px; color: #aaa; font-size: 0.85rem; line-height: 1.5; text-transform: none; list-style-type: square; }
-        .notes-list li { margin-bottom: 5px; }
+<style>
+body{
+  background:#101015;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+  margin:0;
+  padding:20px;
+  text-transform:uppercase;
+}
 
-        /* STICKY TIMER */
-        .timer-module { 
-            background: #111; 
-            border: 3px solid #3d4050; 
-            padding: 15px; 
-            text-align: center; 
-            position: sticky; 
-            top: 5px; 
-            z-index: 1000; 
-            border-radius: 12px; 
-            margin-bottom: 25px; 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5); 
-        }
-        #timer-display { font-size: 4rem; color: #fff; font-weight: 900; font-family: 'Courier New', monospace; line-height: 1; cursor: pointer; }
-        #timer-status { font-size: 0.65rem; color: var(--accent); letter-spacing: 2px; margin-bottom: 4px; }
-        .timer-hint { font-size: 0.5rem; color: #555; margin-top: 5px; }
+/* HEADERS */
+h1{
+  text-align:center;
+  letter-spacing:2px;
+  margin-bottom:6px;
+}
+.subhead{
+  text-align:center;
+  font-size:11px;
+  color:#9fa8ff;
+  margin-bottom:18px;
+}
 
-        /* SECTIONS */
-        .section-heading { font-size: 1.1rem; margin: 35px 0 12px 0; border-left: 6px solid; padding: 12px; font-weight: 900; background: rgba(255,255,255,0.03); }
-        .chest-h { color: var(--chest); border-color: var(--chest); }
-        .stamina-h { color: var(--stamina); border-color: var(--stamina); }
-        .abs-h { color: var(--abs); border-color: var(--abs); }
+/* SECTION HEADERS */
+.section{
+  font-size:20px;
+  text-align:center;
+  font-weight:900;
+  margin:25px 0 15px;
+  color:#e0e0ff;
+  letter-spacing:2px;
+}
 
-        /* CARDS */
-        .card { background: var(--card-bg); border: 1px solid #3d4050; border-radius: 12px; margin-bottom: 20px; overflow: hidden; }
-        .row { display: flex; flex-direction: column; padding: 18px; border-bottom: 1px solid #3d4050; }
+/* CARDS */
+.card{
+  border:1px solid #3b3b5a;
+  padding:18px;
+  margin-bottom:18px;
+  border-radius:12px;
+  background:#1f1f2b;
+  box-shadow:0 2px 14px rgba(0,0,0,0.55);
+  text-align:center;
+}
 
-        .ex-info { margin-bottom: 12px; }
-        .ex-name { font-weight: 900; font-size: 1.1rem; color: #fff; }
-        .ex-meta { font-size: 0.85rem; color: var(--accent); display: block; margin-top: 3px; }
-        
-        .badge-box { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 5px; }
-        .badge { font-size: 0.65rem; padding: 3px 8px; border-radius: 3px; font-weight: 900; color: #fff; }
-        .b-high { background: var(--chest); }
-        .b-mod { background: var(--gold); color: #000; }
-        .b-low { background: var(--cyan); color: #000; }
+/* EXERCISE TEXT */
+.ex{
+  font-weight:900;
+  font-size:18px;
+  letter-spacing:1px;
+  margin-bottom:4px;
+}
+.meta{
+  color:#8be4ff;
+  font-size:12px;
+}
+.intensity{
+  color:#f5ff7a;
+  font-size:11px;
+  margin-top:4px;
+}
+.rest{
+  color:#c0ffb0;
+  font-size:11px;
+  margin-top:4px;
+}
 
-        .semi-note { text-transform: none; font-size: 0.8rem; line-height: 1.4; margin: 12px 0; padding: 10px; border-radius: 6px; background: rgba(0,0,0,0.2); border-left: 3px solid var(--accent); }
-        .n-intel { border-color: var(--cyan); }
-        .n-stress { border-color: var(--chest); }
-        .n-gold { border-color: var(--gold); }
+/* NOTES */
+.note-box{
+  margin-top:10px;
+  padding:10px;
+  border-left:3px solid #b388ff;
+  background:#151522;
+  border-radius:6px;
+  font-size:11px;
+  color:#d0d0ff;
+  line-height:1.4;
+  text-transform:none;
+}
+.note-strong{
+  color:#fff;
+  font-weight:bold;
+}
 
-        /* ACTIONS */
-        .action-row { display: flex; gap: 10px; align-items: center; margin-top: 10px; }
-        .input-pair { display: flex; gap: 5px; flex-grow: 1; }
-        input.track { 
-            width: 100%; height: 55px; text-align: center; font-weight: 900; font-size: 1.2rem; 
-            border-radius: 8px; border: 2px solid #3d4050; outline: none; background: #111; color: #fff;
-        }
-        input.track:focus { border-color: var(--accent); }
-        .prev-val { color: var(--cyan) !important; font-size: 0.9rem !important; border-color: #00334d; }
+/* INPUTS */
+.row{
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  margin-top:10px;
+}
+input{
+  width:45%;
+  padding:10px;
+  background:#05050a;
+  color:#fff;
+  border:1px solid #555a80;
+  border-radius:6px;
+  text-align:center;
+  font-weight:bold;
+}
 
-        .timer-group { display: flex; gap: 5px; }
-        .row-timer-btn { 
-            width: 75px; height: 55px; color: #fff; border: none; border-radius: 8px; 
-            font-weight: 900; font-size: 0.7rem; cursor: pointer; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-        .btn-set { background: var(--accent-alt); box-shadow: 0 4px 0 #3a55b5; }
-        .btn-next { background: var(--transit); color: #888; box-shadow: 0 4px 0 #222; }
+/* BUTTONS */
+.btn{
+  padding:8px 10px;
+  margin-top:10px;
+  background:#262646;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  width:100%;
+}
+.timer{
+  font-size:14px;
+  margin-top:8px;
+  color:#ffffff;
+  text-align:center;
+  font-weight:bold;
+}
 
-        .save-footer { 
-            background: var(--accent); color: #000; border: none; padding: 25px; 
-            width: 100%; font-weight: 900; font-size: 1.2rem; cursor: pointer; 
-            border-radius: 12px; margin-top: 30px; box-shadow: 0 5px 15px rgba(0,173,181,0.3); 
-        }
-    </style>
+/* SAVE BUTTON */
+.save-footer{
+  width:100%;
+  padding:12px;
+  background:#b388ff;
+  color:#050510;
+  font-weight:900;
+  border:none;
+  border-radius:8px;
+  margin-top:25px;
+  cursor:pointer;
+  letter-spacing:1px;
+}
+</style>
 </head>
+
 <body>
 
-<div class="container">
-    <div class="protocol-header">
-        <p class="protocol-title">CHEST_PERFORMANCE_V18</p>
-        <span class="protocol-sub">DEFINITION • NEURAL STAMINA • OBLIQUE_V</span>
-        <ul class="notes-list">
-            <li><strong>Neural Drive:</strong> Explosive concentric, 3s eccentric on all presses.</li>
-            <li><strong>Oblique Etch:</strong> Maintain hollow-body position during all core movements.</li>
-            <li><strong>Rest Logic:</strong> 60s for chest mass; 90s for stamina resets; 30s for V-cut.</li>
-        </ul>
-    </div>
+<h1>CHEST DEFINITION SYSTEM V32</h1>
+<div class="subhead">DEFINITION • NEURAL STAMINA • OBLIQUE_V • SHORT REST • DETAIL WORK</div>
 
-    <div class="timer-module" id="timer-box">
-        <div id="timer-status">SYSTEM_STANDBY</div>
-        <div id="timer-display" onclick="resetTimer()">00:00</div>
-        <div class="timer-hint">TAP DISPLAY TO RESET</div>
-    </div>
+<!-- ========================= -->
+<!--     CHEST DEFINITION      -->
+<!-- ========================= -->
 
-    <div class="section-heading chest-h">CHEST: DEFINITION</div>
-    <div class="card">
-        <div class="row">
-            <div class="ex-info">
-                <span class="ex-name">Flat-Bench DB Press</span>
-                <span class="ex-meta">4 x 12, 12, 10, 8</span>
-                <div class="badge-box"><span class="badge b-high">High Weight</span><span class="badge b-low">Deep Stretch</span></div>
-            </div>
-            <div class="semi-note n-gold"><b>POWER CUE:</b> Retract shoulder blades. Drive dumbbells up in a slight arc, squeezing at the peak.</div>
-            <div class="action-row">
-                <div class="input-pair"><input type="text" id="c1p" class="track prev-val" placeholder="PRV"><input type="text" id="c1c" class="track now-val" placeholder="NOW"></div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-set" onclick="runTimer(60, 'var(--chest)', 'CHEST_RECOVERY')">60s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(120, '#fff', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
+<div class="section">CHEST: DEFINITION BLOCK</div>
 
-        <div class="row">
-            <div class="ex-info">
-                <span class="ex-name">Incline DB Press</span>
-                <span class="ex-meta">3 x 8-10, 8-10, 12</span>
-                <div class="badge-box"><span class="badge b-high">Heavy</span><span class="badge b-mod">Upper Fill</span></div>
-            </div>
-            <div class="semi-note n-stress"><b>STRESS CUE:</b> Bench at 30-45 degrees. Focus on the upper pec fibers. Controlled eccentric.</div>
-            <div class="action-row">
-                <div class="input-pair"><input type="text" id="c2p" class="track prev-val"><input type="text" id="c2c" class="track now-val"></div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-set" onclick="runTimer(60, 'var(--chest)', 'CHEST_RECOVERY')">60s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(120, '#fff', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="ex-info">
-                <span class="ex-name">Incline DB Flye</span>
-                <span class="ex-meta">3 x 12</span>
-                <div class="badge-box"><span class="badge b-mod">Inner Etch</span></div>
-            </div>
-            <div class="semi-note n-intel"><b>INTEL:</b> Keep a slight bend in elbows. Open wide to feel the stretch across the chest wall.</div>
-            <div class="action-row">
-                <div class="input-pair"><input type="text" id="c3p" class="track prev-val"><input type="text" id="c3c" class="track now-val"></div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-set" onclick="runTimer(60, 'var(--chest)', 'CHEST_RECOVERY')">60s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(120, '#fff', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="ex-info">
-                <span class="ex-name">Pec-Deck Flye</span>
-                <span class="ex-meta">3 x 15</span>
-                <div class="badge-box"><span class="badge b-low">High Rep</span><span class="badge b-mod">Squeeze</span></div>
-            </div>
-            <div class="semi-note n-gold"><b>POWER CUE:</b> Touch handles together. Hold the center contraction for 1 full second.</div>
-            <div class="action-row">
-                <div class="input-pair"><input type="text" id="c4p" class="track prev-val"><input type="text" id="c4c" class="track now-val"></div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-set" onclick="runTimer(60, 'var(--chest)', 'CHEST_RECOVERY')">60s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(120, '#fff', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="section-heading stamina-h">STAMINA: PERFORMANCE</div>
-    <div class="card">
-        <div class="row">
-            <div class="ex-info">
-                <span class="ex-name">Deep Squat Pulse</span>
-                <span class="ex-meta">3 x 45s</span>
-                <div class="badge-box"><span class="badge b-mod">Tension</span><span class="badge b-low">Hormonal</span></div>
-            </div>
-            <div class="semi-note n-stress"><b>STRESS CUE:</b> Stay in the bottom 30% of the movement. Constant glute tension.</div>
-            <div class="action-row">
-                <div class="input-pair"><input type="text" id="p1p" class="track prev-val"><input type="text" id="p1c" class="track now-val"></div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-set" style="background:var(--stamina);" onclick="runTimer(90, 'var(--stamina)', 'POWER_REST')">90s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(150, '#fff', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="ex-info">
-                <span class="ex-name">Pelvic Floor Sprints</span>
-                <span class="ex-meta">3 x 30 Reps</span>
-                <div class="badge-box"><span class="badge b-low">Rapid</span></div>
-            </div>
-            <div class="semi-note n-intel"><b>INTEL:</b> Rapid, rhythmic contractions to enhance neural drive and blood flow.</div>
-            <div class="action-row">
-                <div class="input-pair"><input type="text" id="p2p" class="track prev-val"><input type="text" id="p2c" class="track now-val"></div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-set" style="background:var(--stamina);" onclick="runTimer(90, 'var(--stamina)', 'POWER_REST')">90s<span>SET</span></button>
-                    <button class="row-timer-btn btn-next" onclick="runTimer(150, '#fff', 'TRANSIT')">NEXT<span>EX</span></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="section-heading abs-h">ABS: OBLIQUE_V</div>
-    <div class="card">
-        <div class="row">
-            <div class="ex-info">
-                <span class="ex-name">Russian Twists (Weighted)</span>
-                <span class="ex-meta">4 x 20 (Per Side)</span>
-                <div class="badge-box"><span class="badge b-mod">Oblique Etch</span></div>
-            </div>
-            <div class="semi-note n-gold"><b>POWER CUE:</b> Rotate from the core. Tap weight to floor on each side.</div>
-            <div class="action-row">
-                <div class="input-pair"><input type="text" id="a1p" class="track prev-val"><input type="text" id="a1c" class="track now-val"></div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-set" style="background:var(--abs); width: 155px;" onclick="runTimer(30, 'var(--abs)', 'ABS_RECOVERY')">30s<span>SET</span></button>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="ex-info">
-                <span class="ex-name">Lying Leg Circles</span>
-                <span class="ex-meta">3 x 10 (Each Way)</span>
-                <div class="badge-box"><span class="badge b-low">Strict</span></div>
-            </div>
-            <div class="semi-note n-intel"><b>INTEL:</b> Draw large circles with feet. Keep lower back pressed to floor.</div>
-            <div class="action-row">
-                <div class="input-pair"><input type="text" id="a2p" class="track prev-val"><input type="text" id="a2c" class="track now-val"></div>
-                <div class="timer-group">
-                    <button class="row-timer-btn btn-set" style="background:var(--abs); width: 155px;" onclick="runTimer(30, 'var(--abs)', 'ABS_RECOVERY')">30s<span>SET</span></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <button onclick="saveSession()" class="save-footer">SAVE_CHEST_PROTOCOL_SYNC</button>
+<!-- 1. Flat DB Press -->
+<div class="card">
+  <div class="ex">Flat DB Press</div>
+  <div class="meta">12 / 12 / 10 / 10</div>
+  <div class="intensity">3s ECCENTRIC • CONSTANT TENSION</div>
+  <div class="rest">60s REST</div>
+  <div class="note-box"><span class="note-strong">CUE:</span> retract scapula • arc upward • squeeze 1s at peak.</div>
+  <div class="row"><input id="c1p" placeholder="PRV"><input id="c1c" placeholder="NOW"></div>
+  <button class="btn" onclick="timer(this,60)">REST TIMER</button><div class="timer">00:00</div>
 </div>
 
+<!-- 2. Incline DB Press -->
+<div class="card">
+  <div class="ex">Incline DB Press</div>
+  <div class="meta">10 / 10 / 12</div>
+  <div class="intensity">UPPER CHEST FILL</div>
+  <div class="rest">60s REST</div>
+  <div class="note-box"><span class="note-strong">CUE:</span> 30–45° bench • elbows 45° • slow eccentric.</div>
+  <div class="row"><input id="c2p" placeholder="PRV"><input id="c2c" placeholder="NOW"></div>
+  <button class="btn" onclick="timer(this,60)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- 3. Incline DB Flye -->
+<div class="card">
+  <div class="ex">Incline DB Flye</div>
+  <div class="meta">12 / 12 / 12</div>
+  <div class="intensity">INNER CHEST ETCH</div>
+  <div class="rest">60s REST</div>
+  <div class="note-box"><span class="note-strong">CUE:</span> slight elbow bend • open wide • deep stretch.</div>
+  <div class="row"><input id="c3p" placeholder="PRV"><input id="c3c" placeholder="NOW"></div>
+  <button class="btn" onclick="timer(this,60)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- 4. Pec Deck Flye -->
+<div class="card">
+  <div class="ex">Pec Deck Flye</div>
+  <div class="meta">15 / 15 / 15</div>
+  <div class="intensity">1s PEAK HOLD</div>
+  <div class="rest">60s REST</div>
+  <div class="note-box"><span class="note-strong">CUE:</span> touch handles • hold center 1s • no lockout.</div>
+  <div class="row"><input id="c4p" placeholder="PRV"><input id="c4c" placeholder="NOW"></div>
+  <button class="btn" onclick="timer(this,60)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- ========================= -->
+<!--     STAMINA SECTION       -->
+<!-- ========================= -->
+
+<div class="section">STAMINA: PERFORMANCE</div>
+
+<div class="card">
+  <div class="ex">Deep Squat Pulse</div>
+  <div class="meta">3 × 45s</div>
+  <div class="intensity">BOTTOM 30% • CONSTANT TENSION</div>
+  <div class="rest">90s REST</div>
+  <div class="note-box"><span class="note-strong">CUE:</span> stay low • glutes tight • no bouncing.</div>
+  <div class="row"><input id="p1p" placeholder="PRV"><input id="p1c" placeholder="NOW"></div>
+  <button class="btn" onclick="timer(this,90)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<div class="card">
+  <div class="ex">Pelvic Floor Sprints</div>
+  <div class="meta">3 × 30 REPS</div>
+  <div class="intensity">NEURAL DRIVE</div>
+  <div class="rest">90s REST</div>
+  <div class="note-box"><span class="note-strong">CUE:</span> fast rhythmic contractions • stable pelvis.</div>
+  <div class="row"><input id="p2p" placeholder="PRV"><input id="p2c" placeholder="NOW"></div>
+  <button class="btn" onclick="timer(this,90)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- ========================= -->
+<!--        ABS SECTION        -->
+<!-- ========================= -->
+
+<div class="section">ABS: OBLIQUE_V</div>
+
+<div class="card">
+  <div class="ex">Weighted Russian Twist</div>
+  <div class="meta">20 / 20 / 20 / 20</div>
+  <div class="intensity">OBLIQUE ETCH</div>
+  <div class="rest">30s REST</div>
+  <div class="note-box"><span class="note-strong">CUE:</span> rotate torso • tap floor each side.</div>
+  <div class="row"><input id="a1p" placeholder="PRV"><input id="a1c" placeholder="NOW"></div>
+  <button class="btn" onclick="timer(this,30)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<div class="card">
+  <div class="ex">Lying Leg Circles</div>
+  <div class="meta">10 EACH WAY × 3</div>
+  <div class="intensity">STRICT CONTROL</div>
+  <div class="rest">30s REST</div>
+  <div class="note-box"><span class="note-strong">CUE:</span> large circles • lower back glued to floor.</div>
+  <div class="row"><input id="a2p" placeholder="PRV"><input id="a2c" placeholder="NOW"></div>
+  <button class="btn" onclick="timer(this,30)">REST TIMER</button><div class="timer">00:00</div>
+</div>
+
+<!-- SAVE BUTTON -->
+<button onclick="saveChestDefV32()" class="save-footer">SAVE_CHEST_DEFINITION_V32</button>
+
 <script>
-    // --- GATEKEEPER PROTOCOL ---
-    const ACCESS_KEY = "LENOPER2026"; 
+function timer(btn,sec){
+  let card=btn.parentElement;
+  let d=card.querySelector('.timer');
+  let t=sec;
+  clearInterval(btn._t);
+  update();
+  btn._t=setInterval(()=>{
+    t--; update();
+    if(t<=0){clearInterval(btn._t); d.innerText='GO';}
+  },1000);
+  function update(){
+    let m=Math.floor(t/60);
+    let s=t%60;
+    d.innerText=m+":"+(s<10?"0":"")+s;
+  }
+}
 
-    function validateAccess() {
-        const overlay = document.getElementById('lock-overlay');
-        if (!overlay) return;
+function saveChestDefV32(){
+  document.querySelectorAll('input').forEach(i=>{
+    localStorage.setItem('chest_def_v32_'+i.id, i.value);
+  });
+}
 
-        if (sessionStorage.getItem('lenoper_auth') === 'true') {
-            overlay.style.display = 'none';
-            return;
-        }
-
-        const userInput = prompt("SECURITY_CHALLENGE: ENTER ACCESS_CODE");
-        if (userInput === ACCESS_KEY) {
-            sessionStorage.setItem('lenoper_auth', 'true');
-            overlay.style.display = 'none';
-        } else {
-            alert("ACCESS_DENIED");
-            window.location.reload();
-        }
-    }
-
-    let timerObj = null;
-
-    function runTimer(seconds, color, status) {
-        clearInterval(timerObj);
-        const display = document.getElementById('timer-display');
-        const box = document.getElementById('timer-box');
-        
-        // Resolve variable colors for text shadow
-        const hex = color.includes('var') ? 
-            getComputedStyle(document.documentElement).getPropertyValue(color.match(/\(([^)]+)\)/)[1]).trim() : 
-            color;
-
-        box.style.borderColor = (color === '#fff' ? '#3d4050' : color);
-        display.style.color = (color === '#fff' ? '#fff' : color);
-        display.style.textShadow = `0 0 15px ${hex}`;
-
-        // VISUAL FEEDBACK: Pulse effect so you know it triggered without the jump
-        box.style.transition = "transform 0.2s ease";
-        box.style.transform = "scale(1.05)";
-        setTimeout(() => { box.style.transform = "scale(1)"; }, 200);
-
-        document.getElementById('timer-status').innerText = status;
-        let time = seconds; 
-        updateDisplay(time);
-
-        timerObj = setInterval(() => {
-            time--; 
-            updateDisplay(time);
-            if (time <= 0) {
-                clearInterval(timerObj);
-                document.getElementById('timer-status').innerText = "PUSH_NOW";
-                display.innerText = "GO!";
-                display.style.color = "var(--mass)"; // Critical visual trigger
-                if(window.navigator.vibrate) window.navigator.vibrate([300, 100, 300]);
-            }
-        }, 1000);
-
-        // REMOVED: window.scrollTo to keep focus on current chest exercise
-    }
-
-    function resetTimer() {
-        clearInterval(timerObj);
-        const display = document.getElementById('timer-display');
-        display.innerText = "00:00";
-        display.style.color = "#fff";
-        display.style.textShadow = "0 0 10px var(--accent)";
-        document.getElementById('timer-box').style.borderColor = "#3d4050";
-        document.getElementById('timer-status').innerText = "SYSTEM_STANDBY";
-    }
-
-    function updateDisplay(t) {
-        let m = Math.floor(t / 60); 
-        let s = t % 60;
-        document.getElementById('timer-display').innerText = m + ":" + (s < 10 ? "0" + s : s);
-    }
-
-    function saveSession() {
-        document.querySelectorAll('input').forEach(i => localStorage.setItem('vChest_V18_LEN_'+i.id, i.value));
-        alert("CHEST_PROTOCOL_LOCKED");
-    }
-
-    window.onload = () => {
-        validateAccess(); // Initialize security layer
-
-        document.querySelectorAll('input').forEach(i => {
-            const v = localStorage.getItem('vChest_V18_LEN_'+i.id); 
-            if (v) i.value = v;
-        });
-    }
+window.onload=()=>{
+  document.querySelectorAll('input').forEach(i=>{
+    let v=localStorage.getItem('chest_def_v32_'+i.id);
+    if(v) i.value=v;
+  });
+}
 </script>
+
 </body>
 </html>

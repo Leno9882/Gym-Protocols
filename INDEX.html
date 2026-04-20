@@ -1,171 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ForgeArrow | Training Protocols</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #0a0a0a;
-            --card-bg: #111;
-            --accent: #ffffff;
-            --text-dim: #888;
-            --mass-color: #ff3e3e; /* Power Red */
-            --etch-color: #00ff41; /* Audit Green */
-            --def-color: #ff8c00;  /* Shoulder Orange */
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ForgeArrow | Training Protocols</title>
 
-        body {
-            background-color: var(--bg);
-            color: white;
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-transform: uppercase;
-        }
+<style>
+/* ========================= */
+/*        V32 THEME          */
+/* ========================= */
+:root {
+  --bg: #0b0b12;
+  --card-bg: #1a1a26;
+  --border: #3b3b5a;
+  --accent: #b388ff;      /* Electric Purple */
+  --accent-soft: #8be4ff; /* Ice Blue */
+  --text-dim: #777;
+  --hover-glow: rgba(179,136,255,0.35);
+}
 
-        header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
+body{
+  background:var(--bg);
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+  margin:0;
+  padding:30px 20px;
+  text-transform:uppercase;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
 
-        .subtitle {
-            color: var(--text-dim);
-            letter-spacing: 4px;
-            font-size: 0.7rem;
-            margin-bottom: 0.5rem;
-        }
+/* ========================= */
+/*         HEADER            */
+/* ========================= */
+header{
+  text-align:center;
+  margin-bottom:40px;
+}
+.subtitle{
+  color:var(--accent-soft);
+  font-size:11px;
+  letter-spacing:3px;
+  margin-bottom:6px;
+}
+h1{
+  font-size:32px;
+  font-weight:900;
+  letter-spacing:2px;
+  margin:0;
+}
 
-        h1 {
-            font-weight: 900;
-            letter-spacing: -1px;
-            font-size: 2.5rem;
-            margin: 0;
-        }
+/* ========================= */
+/*       CONTAINER           */
+/* ========================= */
+.container{
+  width:100%;
+  max-width:900px;
+}
 
-        .container {
-            width: 100%;
-            max-width: 1000px;
-        }
+/* ========================= */
+/*     SECTION HEADERS       */
+/* ========================= */
+.phase-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:40px 0 18px;
+}
+.phase-header h2{
+  margin:0;
+  font-size:15px;
+  font-weight:900;
+  letter-spacing:2px;
+  color:var(--accent);
+}
+.line{
+  flex-grow:1;
+  height:1px;
+  background:#2a2a38;
+}
 
-        .phase-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin: 3rem 0 1.5rem 0;
-        }
+/* ========================= */
+/*         GRID              */
+/* ========================= */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:16px;
+}
 
-        .phase-header h2 {
-            margin: 0;
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-        }
+/* ========================= */
+/*       NAV CARDS           */
+/* ========================= */
+.nav-card{
+  background:var(--card-bg);
+  padding:22px 10px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  text-decoration:none;
+  color:#fff;
+  text-align:center;
+  font-weight:900;
+  letter-spacing:1px;
+  transition:0.25s ease;
+  box-shadow:0 2px 12px rgba(0,0,0,0.45);
+}
+.nav-card span{
+  display:block;
+  margin-top:4px;
+  font-size:10px;
+  color:var(--accent-soft);
+  font-weight:400;
+  letter-spacing:1px;
+}
 
-        .line {
-            flex-grow: 1;
-            height: 1px;
-            background: #222;
-        }
+/* ========================= */
+/*       HOVER EFFECTS       */
+/* ========================= */
+.nav-card:hover{
+  transform:translateY(-4px);
+  border-color:var(--accent);
+  box-shadow:0 0 12px var(--hover-glow);
+  color:var(--accent);
+}
+.nav-card:hover span{
+  color:var(--accent-soft);
+}
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 1rem;
-        }
-
-        .nav-card {
-            background: var(--card-bg);
-            padding: 2rem 1rem;
-            text-decoration: none;
-            color: white;
-            border-radius: 4px;
-            font-weight: 900;
-            text-align: center;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid #222;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .nav-card span {
-            font-size: 0.6rem;
-            color: var(--text-dim);
-            font-weight: 400;
-            letter-spacing: 1px;
-        }
-
-        /* Hover States */
-        .nav-card:hover {
-            transform: translateY(-3px);
-            background: #1a1a1a;
-        }
-
-        .week-01 .nav-card:hover { border-color: var(--mass-color); color: var(--mass-color); }
-        .week-02 .nav-card:hover { border-color: var(--etch-color); color: var(--etch-color); }
-        .spec .nav-card:hover { border-color: var(--def-color); color: var(--def-color); }
-
-        footer {
-            margin-top: 6rem;
-            color: #444;
-            font-size: 0.65rem;
-            letter-spacing: 2px;
-            text-align: center;
-        }
-    </style>
+/* ========================= */
+/*         FOOTER            */
+/* ========================= */
+footer{
+  margin-top:60px;
+  color:#555;
+  font-size:10px;
+  letter-spacing:2px;
+  text-align:center;
+}
+</style>
 </head>
+
 <body>
 
-    <header>
-        <div class="subtitle">Lenoper Technologies</div>
-        <h1>ForgeArrow_OS</h1>
-    </header>
+<header>
+  <div class="subtitle">Lenoper Technologies</div>
+  <h1>ForgeArrow_OS</h1>
+</header>
 
-    <div class="container">
-        
-        <div class="phase-header">
-            <h2 style="color: var(--mass-color);">Week 01: Load & Power (V18)</h2>
-            <div class="line"></div>
-        </div>
-        <div class="grid week-01">
-            <a href="/PHASE_01_MASS (V18_POWER)/PH1_CHEST_MASS.html" class="nav-card">Chest <span>V18_POWER</span></a>
-            <a href="/PHASE_01_MASS (V18_POWER)/PH1_BACK_MASS.html" class="nav-card">Back <span>V18_POWER</span></a>
-            <a href="/PHASE_01_MASS (V18_POWER)/PH1_LEGS_MASS.html" class="nav-card">Legs <span>V18_POWER</span></a>
-            <a href="/PHASE_01_MASS (V18_POWER)/PH1_SHLDR_MASS.html" class="nav-card">Shoulders <span>V18_POWER</span></a>
-            <a href="/PHASE_01_MASS (V18_POWER)/PH1_ARMS_MASS..html" class="nav-card">Arms <span>V18_POWER</span></a>
-        </div>
+<div class="container">
 
-        <div class="phase-header">
-            <h2 style="color: var(--etch-color);">Week 02: Audit & Etch (V20)</h2>
-            <div class="line"></div>
-        </div>
-        <div class="grid week-02">
-            <a href="/PHASE_02_ETCH (V20_ELITE)/PH2_CHEST_ETCH.html" class="nav-card">Chest <span>V20_ELITE</span></a>
-            <a href="/PHASE_02_ETCH (V20_ELITE)/PH2_BACK_ETCH.html" class="nav-card">Back <span>V20_ELITE</span></a>
-            <a href="/PHASE_02_ETCH (V20_ELITE)/PH2_LEGS_ETCH.html" class="nav-card">Legs <span>V20_AUDIT</span></a>
-            <a href="/PHASE_02_ETCH (V20_ELITE)/PH2_ARMS_ETCH.html" class="nav-card">Arms <span>V20_ELITE</span></a>
-        </div>
+  <!-- ========================= -->
+  <!--     WEEK 01 — MASS        -->
+  <!-- ========================= -->
+  <div class="phase-header">
+    <h2>Week 01: Load & Power (V18)</h2>
+    <div class="line"></div>
+  </div>
 
-        <div class="phase-header">
-            <h2 style="color: var(--def-color);">Advanced Specialization</h2>
-            <div class="line"></div>
-        </div>
-        <div class="grid spec">
-            <a href="/PHASE_02_ETCH (V20_ELITE)/PH2_SHLDR_ETCH.html" class="nav-card">Shoulders <span>V14_DEFINITION</span></a>
-        </div>
+  <div class="grid">
+    <a href="/PHASE_01_MASS (V18_POWER)/PH1_CHEST_MASS.html" class="nav-card">Chest <span>V18_POWER</span></a>
+    <a href="/PHASE_01_MASS (V18_POWER)/PH1_BACK_MASS.html" class="nav-card">Back <span>V18_POWER</span></a>
+    <a href="/PHASE_01_MASS (V18_POWER)/PH1_LEGS_MASS.html" class="nav-card">Legs <span>V18_POWER</span></a>
+    <a href="/PHASE_01_MASS (V18_POWER)/PH1_SHLDR_MASS.html" class="nav-card">Shoulders <span>V18_POWER</span></a>
+    <a href="/PHASE_01_MASS (V18_POWER)/PH1_ARMS_MASS..html" class="nav-card">Arms <span>V18_POWER</span></a>
+  </div>
 
-    </div>
+  <!-- ========================= -->
+  <!--     WEEK 02 — ETCH        -->
+  <!-- ========================= -->
+  <div class="phase-header">
+    <h2>Week 02: Audit & Etch (V20)</h2>
+    <div class="line"></div>
+  </div>
 
-    <footer>
-        &copy; 2026 LENOPER TECHNOLOGIES, INC.<br>
-        2-WEEK MICROCYCLE PROTOCOL ACTIVE
-    </footer>
+  <div class="grid">
+    <a href="/PHASE_02_ETCH (V20_ELITE)/PH2_CHEST_ETCH.html" class="nav-card">Chest <span>V20_ELITE</span></a>
+    <a href="/PHASE_02_ETCH (V20_ELITE)/PH2_BACK_ETCH.html" class="nav-card">Back <span>V20_ELITE</span></a>
+    <a href="/PHASE_02_ETCH (V20_ELITE)/PH2_LEGS_ETCH.html" class="nav-card">Legs <span>V20_AUDIT</span></a>
+    <a href="/PHASE_02_ETCH (V20_ELITE)/PH2_ARMS_ETCH.html" class="nav-card">Arms <span>V20_ELITE</span></a>
+  </div>
+
+  <!-- ========================= -->
+  <!--   SPECIALIZATION — OLD    -->
+  <!-- ========================= -->
+  <div class="phase-header">
+    <h2>Advanced Specialization</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="grid">
+    <a href="/PHASE_02_ETCH (V20_ELITE)/PH2_SHLDR_ETCH.html" class="nav-card">Shoulders <span>V14_DEFINITION</span></a>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 LENOPER TECHNOLOGIES, INC.<br>
+  2-WEEK MICROCYCLE PROTOCOL ACTIVE
+</footer>
 
 </body>
 </html>
